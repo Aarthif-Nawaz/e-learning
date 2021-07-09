@@ -20,9 +20,14 @@ class ShotsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ValuesSerializer(serializers.ModelSerializer):
+class Values_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Values
+        model = Values_Category
+        fields = '__all__'
+
+class Values_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Values_SubCategory
         fields = '__all__'
 
 
@@ -38,31 +43,57 @@ class DiffDigSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ICardsPDFSerializer(serializers.ModelSerializer):
+class ICardsPDF_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = ICardsPDF
+        model = ICardsPDF_Category
+        fields = '__all__'
+
+class ICardsPDF_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPDF_SubCategory
         fields = '__all__'
 
 
-class ICardsAudioSerializer(serializers.ModelSerializer):
+class ICardsAudio_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = ICardsAudio
+        model = ICardsAudio_Category
+        fields = '__all__'
+
+class ICardsAudio_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsAudio_SubCategory
         fields = '__all__'
 
 
-class ICardsVideoSerializer(serializers.ModelSerializer):
+class ICardsVideo_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = ICardsVideo
+        model = ICardsVideo_Category
+        fields = '__all__'
+
+class ICardsVideo_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsVideo_SubCategory
         fields = '__all__'
 
 
-class ImageBankSerializer(serializers.ModelSerializer):
+class ImageBank_CategorySerializerr(serializers.ModelSerializer):
     class Meta:
-        model = ImageBank
+        model = ImageBank_Category
+        fields = '__all__'
+
+class ImageBank_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageBank_SubCategory
         fields = '__all__'
 
 
-class WallPosterSerializer(serializers.ModelSerializer):
+class WallPoster_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = WallPosters
+        model =  WallPoster_Category
+        fields = '__all__'
+
+
+class WallPoster_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WallPoster_SubCategory
         fields = '__all__'
