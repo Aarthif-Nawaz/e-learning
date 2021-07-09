@@ -59,7 +59,7 @@ class ICardsPDF(models.Model):
 class ICardsVideo(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
-    pdf = models.FileField(upload_to=f'Videos/Icards/')
+    video = models.FileField(upload_to=f'Videos/Icards/')
 
     def __str__(self):
         return "%s" % (self.title)
