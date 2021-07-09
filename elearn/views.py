@@ -457,6 +457,62 @@ class ICardsVideoView(APIView):
             get_object_or_404(ICardsVideo, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+class ICardsAudioView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        sub_id = request.GET.get('sub_id')
+        if userId:
+            qs = ICardsAudio.objects.filter(id=userId)
+        elif sub_id:
+            subid = get_object_or_404(SubCategory, id=sub_id)
+            qs = subid.icardsaudio_set.all().order_by('-id')
+        else:
+            qs = ICardsAudio.objects.all().order_by('-id')
+
+        for data in qs:
+            response[data.id] = {
+                "id": data.id,
+                "sub_category": data.sub_category.name,
+                "sub_category_id": data.sub_category.id,
+                "title": data.title,
+                "video": data.video.url if data.video else "no video"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsAudioSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICARDS Audio"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsAudio.objects.get(id=userId)
+        except ICardsAudio.DoesNotExist:
+            return Response({"error": "Icards audio ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsAudioSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsAudio, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsAudio, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
 
 class ImageBankView(APIView):
 

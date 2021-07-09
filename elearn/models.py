@@ -24,6 +24,7 @@ class Shots(models.Model):
     def __str__(self):
         return "%s" % (self.title)
 
+
 class Diff_Dig(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
@@ -31,6 +32,7 @@ class Diff_Dig(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
 
 class recent_updates(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
@@ -40,6 +42,7 @@ class recent_updates(models.Model):
     def __str__(self):
         return "%s" % (self.title)
 
+
 class Values(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
@@ -47,6 +50,7 @@ class Values(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
 
 class ICardsPDF(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
@@ -56,6 +60,16 @@ class ICardsPDF(models.Model):
     def __str__(self):
         return "%s" % (self.title)
 
+
+class ICardsAudio(models.Model):
+    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    audio = models.FileField(upload_to=f'Audios/Icards/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
 class ICardsVideo(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
@@ -64,6 +78,7 @@ class ICardsVideo(models.Model):
     def __str__(self):
         return "%s" % (self.title)
 
+
 class ImageBank(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
@@ -71,6 +86,7 @@ class ImageBank(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
 
 class WallPosters(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True)

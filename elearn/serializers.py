@@ -44,6 +44,12 @@ class ICardsPDFSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ICardsAudioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsAudio
+        fields = '__all__'
+
+
 class ICardsVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsVideo

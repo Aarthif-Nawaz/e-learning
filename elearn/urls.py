@@ -10,6 +10,7 @@ urlpatterns = [
     path('diff_dig/', Diff_DigView.as_view(), name="Diff Dig register"),
     path('icards_pdf/', ICardsPDFView.as_view(), name="Icards PDF register"),
     path('icards_video/', ICardsVideoView.as_view(), name="Icards Video register"),
+    path('icards_audio/', ICardsAudioView.as_view(), name="Icards Audio register"),
     path('image_bank/', ImageBankView.as_view(), name="Icards Video register"),
     path('wall_poster/', WallPosterView.as_view(), name="Icards Video register"),
 
