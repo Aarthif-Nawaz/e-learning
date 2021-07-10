@@ -30,7 +30,7 @@ class ShotsView(APIView):
         if userId:
             qs = Shots.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(ShotsSubCategory, id=sub_id)
             qs = subid.shots_set.all().order_by('-id')
         else:
             qs = Shots.objects.all().order_by('-id')
@@ -78,25 +78,25 @@ class ShotsView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
-class CategoryView(APIView):
+class ShotsCategoryView(APIView):
 
     def get(self, request, format=None):
         userId = request.GET.get('id')
         if userId:
-            return Response(CategorySerializer(get_object_or_404(Category, id=userId), many=False).data,
+            return Response(ShotsCategorySerializer(get_object_or_404(ShotsCategory, id=userId), many=False).data,
                             status=status.HTTP_200_OK)
 
-        serializer = CategorySerializer(Category.objects.all(), many=True)
+        serializer = ShotsCategorySerializer(ShotsCategory.objects.all(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         data = request.data
         try:
-            serializer = CategorySerializer(data=data)
+            serializer = ShotsCategorySerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
             return Response({"Status": True,
-                             "Message": "Successfully Registered Category"},
+                             "Message": "Successfully Registered Shots Category"},
                             status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
@@ -106,31 +106,32 @@ class CategoryView(APIView):
         userId = request.GET.get('id')
         data = request.data
         try:
-            user = Category.objects.get(id=userId)
-        except Category.DoesNotExist:
-            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = CategorySerializer(user, data=data, partial=True)
+            user = ShotsCategory.objects.get(id=userId)
+        except ShotsCategory.DoesNotExist:
+            return Response({"error": "Shots Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ShotsCategorySerializer(user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
 
     def delete(self, request, format=None):
         if request.GET.get('id'):
-            get_object_or_404(Category, id=request.GET.get('id')).delete()
+            get_object_or_404(ShotsCategory, id=request.GET.get('id')).delete()
         else:
-            get_object_or_404(Category, id=request.data.get('id')).delete()
+            get_object_or_404(ShotsCategory, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
-class SubCategoryView(APIView):
+class ShotsSubCategoryView(APIView):
 
     def get(self, request, format=None):
         response = {}
         userId = request.GET.get('id')
         if userId:
-            qs = SubCategory.objects.filter(id=userId)
+            qs = ShotsSubCategory.objects.filter(id=userId)
         else:
-            qs = SubCategory.objects.all()
+            qs = ShotsSubCategory.objects.all()
 
         for data in qs:
             print(data)
@@ -144,7 +145,105 @@ class SubCategoryView(APIView):
     def post(self, request):
         data = request.data
         try:
-            serializer = SubCategorySerializer(data=data)
+            serializer = ShotsSubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Shots SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ShotsSubCategory.objects.get(id=userId)
+        except ShotsSubCategory.DoesNotExist:
+            return Response({"error": "Shots Sub Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ShotsSubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ShotsSubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ShotsSubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class Diff_Dig_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                Diff_Dig_CategorySerializer(get_object_or_404(Diff_Dig_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = Diff_Dig_CategorySerializer(Diff_Dig_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Diff_Dig_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Diff_Dig_Category.objects.get(id=userId)
+        except Diff_Dig_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = Diff_Dig_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(Diff_Dig_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Diff_Dig_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class Diff_Dig_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Diff_Dig_SubCategory.objects.filter(id=userId)
+        else:
+            qs = Diff_Dig_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Diff_Dig_SubCategorySerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
             return Response({"Status": True,
@@ -158,19 +257,19 @@ class SubCategoryView(APIView):
         userId = request.GET.get('id')
         data = request.data
         try:
-            user = SubCategory.objects.get(id=userId)
-        except SubCategory.DoesNotExist:
+            user = Diff_Dig_SubCategory.objects.get(id=userId)
+        except Diff_Dig_SubCategory.DoesNotExist:
             return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = SubCategorySerializer(user, data=data, partial=True)
+        serializer = Diff_Dig_SubCategorySerializer(user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
 
     def delete(self, request, format=None):
         if request.GET.get('id'):
-            get_object_or_404(SubCategory, id=request.GET.get('id')).delete()
+            get_object_or_404(Diff_Dig_SubCategory, id=request.GET.get('id')).delete()
         else:
-            get_object_or_404(SubCategory, id=request.data.get('id')).delete()
+            get_object_or_404(Diff_Dig_SubCategory, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -183,7 +282,7 @@ class Diff_DigView(APIView):
         if userId:
             qs = Diff_Dig.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(Diff_Dig_SubCategory, id=sub_id)
             qs = subid.diff_dig_set.all().order_by('-id')
         else:
             qs = Diff_Dig.objects.all().order_by('-id')
@@ -231,6 +330,105 @@ class Diff_DigView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class RecentUpdatesCategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(Recent_Updates_CategorySerializer(get_object_or_404(Recent_Updates_Category, id=userId),
+                                                              many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = Recent_Updates_CategorySerializer(Recent_Updates_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Recent_Updates_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Shots Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Recent_Updates_Category.objects.get(id=userId)
+        except Recent_Updates_Category.DoesNotExist:
+            return Response({"error": "Shots Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Recent_Updates_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(Recent_Updates_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Recent_Updates_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class RecentUpdatesSubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Recent_Updates_SubCategory.objects.filter(id=userId)
+        else:
+            qs = Recent_Updates_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Recent_Updates_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Shots SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Recent_Updates_SubCategory.objects.get(id=userId)
+        except Recent_Updates_SubCategory.DoesNotExist:
+            return Response({"error": "Shots Sub Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Recent_Updates_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(Recent_Updates_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Recent_Updates_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class RecentUpdatesView(APIView):
 
     def get(self, request, format=None):
@@ -240,7 +438,7 @@ class RecentUpdatesView(APIView):
         if userId:
             qs = recent_updates.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(Recent_Updates_SubCategory, id=sub_id)
             qs = subid.recent_updates_set.all().order_by('-id')
         else:
             qs = recent_updates.objects.all().order_by('-id')
@@ -288,6 +486,103 @@ class RecentUpdatesView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class Values_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(Values_CategorySerializer(get_object_or_404(Values_Category, id=userId), many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = Values_CategorySerializer(Values_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Values_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Values Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Values_Category.objects.get(id=userId)
+        except Values_Category.DoesNotExist:
+            return Response({"error": "Values Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Values_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(Values_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Values_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class Values_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Values_SubCategory.objects.filter(id=userId)
+        else:
+            qs = Values_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Values_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Values_SubCategory.objects.get(id=userId)
+        except Values_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = Values_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(Values_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Values_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class ValuesView(APIView):
 
     def get(self, request, format=None):
@@ -297,7 +592,7 @@ class ValuesView(APIView):
         if userId:
             qs = Values.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(Values_SubCategory, id=sub_id)
             qs = subid.values_set.all().order_by('-id')
         else:
             qs = Values.objects.all().order_by('-id')
@@ -345,6 +640,103 @@ class ValuesView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class ICardsPDF_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                ICardsPDF_CategorySerializer(get_object_or_404(ICardsPDF_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = ICardsPDF_CategorySerializer(ICardsPDF_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsPDF_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsPDF_Category.objects.get(id=userId)
+        except ICardsPDF_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsPDF_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsPDF_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsPDF_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ICardsPDF_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsPDF_SubCategory.objects.filter(id=userId)
+        else:
+            qs = ICardsPDF_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsPDF_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsPDF_SubCategory.objects.get(id=userId)
+        except ICardsPDF_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsPDF_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsPDF_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsPDF_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class ICardsPDFView(APIView):
     def get(self, request, format=None):
         response = {}
@@ -353,7 +745,7 @@ class ICardsPDFView(APIView):
         if userId:
             qs = ICardsPDF.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(ICardsPDF_SubCategory, id=sub_id)
             qs = subid.icardspdf_set.all().order_by('-id')
         else:
             qs = ICardsPDF.objects.all().order_by('-id')
@@ -401,6 +793,103 @@ class ICardsPDFView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class ICardsVideo_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                ICardsVideo_CategorySerializer(get_object_or_404(ICardsVideo_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = ICardsVideo_CategorySerializer(ICardsVideo_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsVideo_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsVideo_Category.objects.get(id=userId)
+        except ICardsVideo_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsVideo_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsVideo_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsVideo_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ICardsVideo_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsVideo_SubCategory.objects.filter(id=userId)
+        else:
+            qs = ICardsVideo_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsVideo_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsVideo_SubCategory.objects.get(id=userId)
+        except ICardsVideo_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsVideo_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsVideo_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsVideo_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class ICardsVideoView(APIView):
 
     def get(self, request, format=None):
@@ -410,7 +899,7 @@ class ICardsVideoView(APIView):
         if userId:
             qs = ICardsVideo.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(ICardsVideo_SubCategory, id=sub_id)
             qs = subid.icardsvideo_set.all().order_by('-id')
         else:
             qs = ICardsVideo.objects.all().order_by('-id')
@@ -457,6 +946,104 @@ class ICardsVideoView(APIView):
             get_object_or_404(ICardsVideo, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
+class ICardsAudio_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                ICardsAudio_CategorySerializer(get_object_or_404(ICardsAudio_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = ICardsAudio_CategorySerializer(ICardsAudio_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsAudio_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsAudio_Category.objects.get(id=userId)
+        except ICardsAudio_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsAudio_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsAudio_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsAudio_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ICardsAudio_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsAudio_SubCategory.objects.filter(id=userId)
+        else:
+            qs = ICardsAudio_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsAudio_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsAudio_SubCategory.objects.get(id=userId)
+        except ICardsAudio_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsAudio_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsAudio_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsAudio_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class ICardsAudioView(APIView):
 
     def get(self, request, format=None):
@@ -466,7 +1053,7 @@ class ICardsAudioView(APIView):
         if userId:
             qs = ICardsAudio.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(ICardsAudio_SubCategory, id=sub_id)
             qs = subid.icardsaudio_set.all().order_by('-id')
         else:
             qs = ICardsAudio.objects.all().order_by('-id')
@@ -514,6 +1101,103 @@ class ICardsAudioView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class ImageBank_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                ImageBank_CategorySerializerr(get_object_or_404(ImageBank_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = ImageBank_CategorySerializerr(ImageBank_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ImageBank_CategorySerializerr(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ImageBank_Category.objects.get(id=userId)
+        except ImageBank_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ImageBank_CategorySerializerr(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ImageBank_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ImageBank_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ImageBank_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ImageBank_SubCategory.objects.filter(id=userId)
+        else:
+            qs = ImageBank_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ImageBank_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ImageBank_SubCategory.objects.get(id=userId)
+        except  ImageBank_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ImageBank_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(ImageBank_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ImageBank_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class ImageBankView(APIView):
 
     def get(self, request, format=None):
@@ -523,7 +1207,7 @@ class ImageBankView(APIView):
         if userId:
             qs = ImageBank.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(ImageBank_SubCategory, id=sub_id)
             qs = subid.imagebank_set.all().order_by('-id')
         else:
             qs = ImageBank.objects.all().order_by('-id')
@@ -571,6 +1255,103 @@ class ImageBankView(APIView):
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class WallPoster_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(
+                WallPoster_CategorySerializer(get_object_or_404(WallPoster_Category, id=userId), many=False).data,
+                status=status.HTTP_200_OK)
+
+        serializer = WallPoster_CategorySerializer(WallPoster_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = WallPoster_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = WallPoster_Category.objects.get(id=userId)
+        except WallPoster_Category.DoesNotExist:
+            return Response({"error": "Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = WallPoster_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(WallPoster_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(WallPoster_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class WallPoster_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = WallPoster_SubCategory.objects.filter(id=userId)
+        else:
+            qs = WallPoster_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category": data.category.name,
+                "sub_category": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = WallPoster_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = WallPoster_SubCategory.objects.get(id=userId)
+        except WallPoster_SubCategory.DoesNotExist:
+            return Response({"error": "Sub Category ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = WallPoster_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(WallPoster_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(WallPoster_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
 class WallPosterView(APIView):
     def get(self, request, format=None):
         response = {}
@@ -579,7 +1360,7 @@ class WallPosterView(APIView):
         if userId:
             qs = WallPosters.objects.filter(id=userId)
         elif sub_id:
-            subid = get_object_or_404(SubCategory, id=sub_id)
+            subid = get_object_or_404(WallPoster_SubCategory, id=sub_id)
             qs = subid.wallposters_set.all().order_by('-id')
         else:
             qs = WallPosters.objects.all().order_by('-id')
