@@ -293,7 +293,7 @@ class Diff_DigView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -448,7 +448,7 @@ class RecentUpdatesView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -603,7 +603,7 @@ class ValuesView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -756,7 +756,7 @@ class ICardsPDFView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -1064,7 +1064,7 @@ class ICardsAudioView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "audio": data.audio.url if data.audio else "no audio"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -1218,7 +1218,7 @@ class ImageBankView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -1371,7 +1371,7 @@ class WallPosterView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "video": data.video.url if data.video else "no video"
+                "pdf": data.pdf.url if data.pdf else "no pdf"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
