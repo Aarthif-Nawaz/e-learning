@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+#ssh -i e-learning.pem ubuntu@ec2-54-151-204-88.ap-southeast-1.compute.amazonaws.com
 import os
 import sys
 
