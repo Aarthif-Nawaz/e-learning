@@ -97,3 +97,16 @@ class WallPoster_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = WallPoster_SubCategory
         fields = '__all__'
+
+
+
+class QuestionOfTheDaySerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = QuestionOfTheDay
+        fields = '__all__'
+class DailyBoostBannerSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  DailyBoostBanner
+        fields = '__all__'
+

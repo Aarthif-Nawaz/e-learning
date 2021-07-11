@@ -123,3 +123,21 @@ class WallPoster_SubCategory(models.Model):
 
     def __str__(self):
         return "%s" % (self.name)
+
+
+
+class DailyBoostBanner(models.Model):
+    title = models.CharField(max_length=200)
+    banner = models.ImageField(upload_to=f'eleam/images')
+
+class QuestionOfTheDay(models.Model):
+    banner = models.ForeignKey(DailyBoostBanner, on_delete=models.CASCADE, null=True)
+    Question = models.CharField(max_length=200)
+    Answer1 = models.CharField(max_length=200)
+    Answer2 = models.CharField(max_length=200)
+    Answer3 = models.CharField(max_length=200)
+    Answer4 = models.CharField(max_length=200)
+    CorrectAnswer = models.CharField(max_length=200)
+    Explanation = models.CharField(max_length=200)
+    Image = models.ImageField(upload_to=f'eleam/images')
+

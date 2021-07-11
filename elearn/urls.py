@@ -13,5 +13,7 @@ urlpatterns = [
     path('icards_audio/', ICardsAudio_CategoryView.as_view(), name="Icards Audio register"),
     path('image_bank/', ImageBank_CategoryView.as_view(), name="Icards Video register"),
     path('wall_poster/', WallPoster_CategoryView.as_view(), name="Icards Video register"),
+    path('DailyBoostBanner/', DailyBoostBannerView.as_view(), name="DailyBoostBanner"),
+    path('QuestionOfTheDay/', QuestionOfTheDayView.as_view(), name="QuestionOfTheDayView"),
 
 ]
