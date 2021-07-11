@@ -877,7 +877,7 @@ class DailyBoostBannerView(APIView):
                 "sub_category": data.sub_category.name,
                 "sub_category_id": data.sub_category.id,
                 "title": data.title,
-                "banner": data.image.url if data.image else "no image"
+                "banner": data.banner.url if data.banner else "no banner"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -934,7 +934,15 @@ class QuestionOfTheDayView(APIView):
                 "id": data.id,
                 "sub_category": data.sub_category.name,               
                 "title": data.title,
-                "banner": data.image.url if data.image else "no image"
+                "banner": data.banner.url if data.banner else "no banner",
+                "Question":data.Question,
+                "Answer1":data.Answer1,
+                "Answer2":data.Answer2,
+                "Answer3":data.Answer3,
+                "Answer4":data.Answer4,
+                "CorrectAnswer":data.CorrectAnswer,
+                "Explanation":data.Explanation,
+                "image": data.image.url if data.image else "no image"               
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
