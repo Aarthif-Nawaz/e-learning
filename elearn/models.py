@@ -141,3 +141,31 @@ class QuestionOfTheDay(models.Model):
     Explanation = models.CharField(max_length=200)
     Image = models.ImageField(upload_to=f'eleam/images')
 
+# -------------------------------------------New Changes ----------------
+class DailyBoosterQuiz(models.Model):  
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    timer  =  models.TimeField() 
+    image = models.ImageField(upload_to=f'eleam/images')
+
+class QuestionBank_Category(models.Model):     
+    name = models.CharField(max_length=200)
+
+class QuestionBank_SubCategory(models.Model):    
+    title = models.CharField(max_length=200)
+    category = models.ForeignKey(QuestionBank_Category, on_delete=models.CASCADE, null=True)
+    examtype = models.CharField(max_length=200)   
+    numberofmcqs = models.CharField(max_length=200)
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=f'eleam/images')

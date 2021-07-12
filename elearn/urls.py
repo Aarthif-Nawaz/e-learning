@@ -16,4 +16,11 @@ urlpatterns = [
     path('DailyBoostBanner/', DailyBoostBannerView.as_view(), name="DailyBoostBanner"),
     path('QuestionOfTheDay/', QuestionOfTheDayView.as_view(), name="QuestionOfTheDayView"),
 
+    path('DailyBoosterQuiz/', DailyBoosterQuizView.as_view(), name="DailyBoosterQuizView"),
+    path('QuestionBank_Category/', QuestionBank_CategoryView.as_view(), name="QuestionBank_CategoryView"),
+    path('QuestionBank_SubCategory/', QuestionBank_SubCategoryView.as_view(), name="QuestionBank_SubCategoryView"),
+  
+
+
+
 ]

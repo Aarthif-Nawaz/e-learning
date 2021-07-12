@@ -110,3 +110,20 @@ class DailyBoostBannerSerializer(serializers.ModelSerializer):
         model =  DailyBoostBanner
         fields = '__all__'
 
+# ---------------------- new changes ---------
+class DailyBoosterQuizSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  DailyBoosterQuiz
+        fields = '__all__'
+
+class QuestionBank_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionBank_Category
+        fields = '__all__'
+class QuestionBank_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionBank_SubCategory
+        fields = '__all__'
