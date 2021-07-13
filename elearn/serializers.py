@@ -257,3 +257,56 @@ class PrimeClassNotes_Serializer(serializers.ModelSerializer):
     class Meta:
         model =  PrimeClassNotes
         fields = '__all__'
+    
+       # ----------------Live class  13 july ---
+class LiveClassBannerImage_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  LiveClassBannerImage
+        fields = '__all__'
+class LiveClass_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  LiveClass_Category
+        fields = '__all__'
+
+
+class LiveClass_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  LiveClass_SubCategory
+        fields = '__all__'
+
+class LiveClass_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  LiveClass
+        fields = '__all__'
+
+
+# --------------- QuestionBankPreviousQuestions
+
+class QuestionBankPreviousQuestions_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionBankPreviousQuestions_Category
+        fields = '__all__'
+
+
+class QuestionBankPreviousQuestions_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionBankPreviousQuestions_SubCategory
+        fields = '__all__'
+
+class QuestionBankPreviousQuestions_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionBankPreviousQuestions
+        fields = '__all__'
+
+class QuestionDiscussion_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  QuestionDiscussion
+        fields = '__all__'

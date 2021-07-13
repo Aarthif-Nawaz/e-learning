@@ -49,4 +49,16 @@ urlpatterns = [
     path('PrimeClassNotes_SubCategory/', PrimeClassNotes_SubCategoryView.as_view(), name="PrimeClassNotes_SubCategoryView"),
     path('PrimeClassNotes/', PrimeClassNotesView.as_view(), name="PrimeClassNotesView"),
 
+    path('LiveClassBannerImage/', LiveClassBannerImageView.as_view(), name="LiveClassBannerImageView"),
+    path('LiveClass_Category/', LiveClass_CategoryView.as_view(), name="LiveClass_CategoryView"),
+    path('LiveClass_SubCategory/', LiveClass_SubCategoryView.as_view(), name="LiveClass_SubCategoryView"),
+    path('LiveClass/', LiveClassView.as_view(), name="LiveClassView"),
+
+
+    path('QuestionBankPreviousQuestions_Category/', QuestionBankPreviousQuestions_CategoryView.as_view(), name="QuestionBankPreviousQuestions_CategoryView"),
+    path('QuestionBankPreviousQuestions_SubCategory/', QuestionBankPreviousQuestions_SubCategoryView.as_view(), name="QuestionBankPreviousQuestions_SubCategoryView"),
+    path('QuestionBankPreviousQuestions/', QuestionBankPreviousQuestionsView.as_view(), name="QuestionBankPreviousQuestionsView"),
+
+    path('QuestionDiscussion/', QuestionDiscussionView.as_view(), name="QuestionDiscussionView"),
+
 ]

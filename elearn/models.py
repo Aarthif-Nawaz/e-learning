@@ -346,3 +346,74 @@ class PrimeClassNotes(models.Model):
 
     def __str__(self):
         return "%s" % (self.title) 
+
+
+        # ----------------Live class  13 july ---
+
+class LiveClassBannerImage(models.Model):   
+    title = models.CharField(max_length=200)
+    bannerimage = models.ImageField(upload_to=f'LiveClassBannerImage/images')
+
+    
+    def __str__(self):
+        return "%s" % (self.title)
+
+class LiveClass_Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class LiveClass_SubCategory(models.Model):
+    category = models.ForeignKey(LiveClass_Category)
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class LiveClass(models.Model):
+    banner = models.ForeignKey(LiveClassBannerImage)
+    sub_category = models.ForeignKey(LiveClass_SubCategory)
+    title = models.CharField(max_length=200)
+    video = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.title) 
+
+
+
+
+
+# ---------------------QuestionBankPreviousQuestions------
+
+class QuestionBankPreviousQuestions_Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class QuestionBankPreviousQuestions_SubCategory(models.Model):
+    category = models.ForeignKey(QuestionBankPreviousQuestions_Category)
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class QuestionBankPreviousQuestions(models.Model):
+    sub_category = models.ForeignKey(QuestionBankPreviousQuestions_SubCategory)
+    title = models.CharField(max_length=200)
+    pdf = models.FileField(upload_to=f'Notes/QuestionBankPreviousQuestions/')
+
+    def __str__(self):
+        return "%s" % (self.title) 
+
+
+
+# ----------------------- QuestionDiscussion -------------
+
+class QuestionDiscussion(models.Model):
+    title = models.CharField(max_length=200)
+    video = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.title) 
