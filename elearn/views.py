@@ -1530,6 +1530,9 @@ class DailyBoosterQuizView(APIView):
         for data in qs:
             response[data.id] = {
                 "id": data.id,
+                "banner_id": data.banner.id,
+                "bannerImage": data.banner.banner,
+                "bannerTitle":data.banner.title,
                 "question": data.question,
                 "answer1": data.answer1,
                 "answer2": data.answer2,
