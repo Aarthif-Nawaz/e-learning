@@ -36,4 +36,29 @@ urlpatterns = [
     path('QuestionBank_SubCategory/', QuestionBank_SubCategoryView.as_view(), name="QuestionBank_SubCategoryView"),
     path('QuestionBank/', QuestionBankView.as_view(), name="QuestionBankView"),
 
+
+    path('PrimeClassVideo_Category/', PrimeClassVideo_CategoryView.as_view(), name="PrimeClassVideo_CategoryView"),
+    path('PrimeClassVideo_SubCategory/', PrimeClassVideo_SubCategoryView.as_view(), name="PrimeClassVideo_SubCategoryView"),
+    path('PrimeClassVideo/', PrimeClassVideoView.as_view(), name="PrimeClassVideoView"),
+
+    path('PrimeClassAudio_Category/', PrimeClassAudio_CategoryView.as_view(), name="PrimeClassAudio_CategoryView"),
+    path('PrimeClassAudio_SubCategory/', PrimeClassAudio_SubCategoryView.as_view(), name="PrimeClassAudioSubCategoryView"),
+    path('PrimeClassAudio/', PrimeClassAudioView.as_view(), name="PrimeClassAudioView"),
+
+    path('PrimeClassNotes_Category/', PrimeClassNotes_CategoryView.as_view(), name="PrimeClassNotes_CategoryView"),
+    path('PrimeClassNotes_SubCategory/', PrimeClassNotes_SubCategoryView.as_view(), name="PrimeClassNotes_SubCategoryView"),
+    path('PrimeClassNotes/', PrimeClassNotesView.as_view(), name="PrimeClassNotesView"),
+
+    path('LiveClassBannerImage/', LiveClassBannerImageView.as_view(), name="LiveClassBannerImageView"),
+    path('LiveClass_Category/', LiveClass_CategoryView.as_view(), name="LiveClass_CategoryView"),
+    path('LiveClass_SubCategory/', LiveClass_SubCategoryView.as_view(), name="LiveClass_SubCategoryView"),
+    path('LiveClass/', LiveClassView.as_view(), name="LiveClassView"),
+
+
+    path('QuestionBankPreviousQuestions_Category/', QuestionBankPreviousQuestions_CategoryView.as_view(), name="QuestionBankPreviousQuestions_CategoryView"),
+    path('QuestionBankPreviousQuestions_SubCategory/', QuestionBankPreviousQuestions_SubCategoryView.as_view(), name="QuestionBankPreviousQuestions_SubCategoryView"),
+    path('QuestionBankPreviousQuestions/', QuestionBankPreviousQuestionsView.as_view(), name="QuestionBankPreviousQuestionsView"),
+
+    path('QuestionDiscussion/', QuestionDiscussionView.as_view(), name="QuestionDiscussionView"),
+
 ]
