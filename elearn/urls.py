@@ -29,5 +29,11 @@ urlpatterns = [
     path('wall_poster_category/', WallPoster_CategoryView.as_view(), name="wall poster category register"),
     path('wall_poster_sub_category/', WallPoster_SubCategoryView.as_view(), name="wall poster sub category register"),
     path('wall_poster/', WallPosterView.as_view(), name="wall poster register"),
+    path('DailyBoostBanner/', DailyBoostBannerView.as_view(), name="DailyBoostBanner"),
+    path('QuestionOfTheDay/', QuestionOfTheDayView.as_view(), name="QuestionOfTheDayView"),
+    path('DailyBoosterQuiz/', DailyBoosterQuizView.as_view(), name="DailyBoosterQuizView"),
+    path('QuestionBank_Category/', QuestionBank_CategoryView.as_view(), name="QuestionBank_CategoryView"),
+    path('QuestionBank_SubCategory/', QuestionBank_SubCategoryView.as_view(), name="QuestionBank_SubCategoryView"),
+    path('QuestionBank/', QuestionBankView.as_view(), name="QuestionBankView"),
 
 ]

@@ -162,3 +162,39 @@ class WallPosterSerializer(serializers.ModelSerializer):
     class Meta:
         model = WallPosters
         fields = '__all__'
+
+
+class QuestionOfTheDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionOfTheDay
+        fields = '__all__'
+
+
+class DailyBoostBannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoostBanner
+        fields = '__all__'
+
+
+class DailyBoosterQuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterQuiz
+        fields = '__all__'
+
+
+class QuestionBank_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBank_Category
+        fields = '__all__'
+
+
+class QuestionBank_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBank_SubCategory
+        fields = '__all__'
+
+
+class QuestionBank_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBank
+        fields = '__all__'

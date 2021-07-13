@@ -215,3 +215,69 @@ class WallPosters(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+
+class DailyBoostBanner(models.Model):
+    title = models.CharField(max_length=200)
+    banner = models.ImageField(upload_to=f'banner/images')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+class QuestionOfTheDay(models.Model):
+    Question = models.CharField(max_length=200)
+    Answer1 = models.CharField(max_length=200)
+    Answer2 = models.CharField(max_length=200)
+    Answer3 = models.CharField(max_length=200)
+    Answer4 = models.CharField(max_length=200)
+    CorrectAnswer = models.CharField(max_length=200)
+    Explanation = models.CharField(max_length=200)
+    Image = models.ImageField(upload_to=f'Question/images')
+
+    def __str__(self):
+        return "%s" % (self.Question)
+
+class DailyBoosterQuiz(models.Model):
+    banner = models.ForeignKey(DailyBoostBanner, on_delete=models.CASCADE, null=True)
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    timer = models.TimeField()
+    image = models.ImageField(upload_to=f'Daily/images')
+
+    def __str__(self):
+        return "%s" % (self.question)
+
+class QuestionBank_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+class QuestionBank_SubCategory(models.Model):
+    category = models.ForeignKey(QuestionBank_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+class QuestionBank(models.Model):
+    category = models.ForeignKey(QuestionBank_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    examtype = models.CharField(max_length=200)
+    numberofmcqs = models.CharField(max_length=200)
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=f'Bank/images')
+
+    def __str__(self):
+        return "%s" % (self.title)

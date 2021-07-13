@@ -31,9 +31,9 @@ class ShotsView(APIView):
             qs = Shots.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(ShotsSubCategory, id=sub_id)
-            qs = subid.shots_set.all().order_by('-id')
+            qs = subid.shots_set.all().order_by('id')
         else:
-            qs = Shots.objects.all().order_by('-id')
+            qs = Shots.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -283,9 +283,9 @@ class Diff_DigView(APIView):
             qs = Diff_Dig.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(Diff_Dig_SubCategory, id=sub_id)
-            qs = subid.diff_dig_set.all().order_by('-id')
+            qs = subid.diff_dig_set.all().order_by('id')
         else:
-            qs = Diff_Dig.objects.all().order_by('-id')
+            qs = Diff_Dig.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -439,9 +439,9 @@ class RecentUpdatesView(APIView):
             qs = recent_updates.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(Recent_Updates_SubCategory, id=sub_id)
-            qs = subid.recent_updates_set.all().order_by('-id')
+            qs = subid.recent_updates_set.all().order_by('id')
         else:
-            qs = recent_updates.objects.all().order_by('-id')
+            qs = recent_updates.objects.all().order_by('id')
         for data in qs:
             response[data.id] = {
                 "id": data.id,
@@ -593,9 +593,9 @@ class ValuesView(APIView):
             qs = Values.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(Values_SubCategory, id=sub_id)
-            qs = subid.values_set.all().order_by('-id')
+            qs = subid.values_set.all().order_by('id')
         else:
-            qs = Values.objects.all().order_by('-id')
+            qs = Values.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -746,9 +746,9 @@ class ICardsPDFView(APIView):
             qs = ICardsPDF.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(ICardsPDF_SubCategory, id=sub_id)
-            qs = subid.icardspdf_set.all().order_by('-id')
+            qs = subid.icardspdf_set.all().order_by('id')
         else:
-            qs = ICardsPDF.objects.all().order_by('-id')
+            qs = ICardsPDF.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -900,9 +900,9 @@ class ICardsVideoView(APIView):
             qs = ICardsVideo.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(ICardsVideo_SubCategory, id=sub_id)
-            qs = subid.icardsvideo_set.all().order_by('-id')
+            qs = subid.icardsvideo_set.all().order_by('id')
         else:
-            qs = ICardsVideo.objects.all().order_by('-id')
+            qs = ICardsVideo.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -1054,9 +1054,9 @@ class ICardsAudioView(APIView):
             qs = ICardsAudio.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(ICardsAudio_SubCategory, id=sub_id)
-            qs = subid.icardsaudio_set.all().order_by('-id')
+            qs = subid.icardsaudio_set.all().order_by('id')
         else:
-            qs = ICardsAudio.objects.all().order_by('-id')
+            qs = ICardsAudio.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -1208,9 +1208,9 @@ class ImageBankView(APIView):
             qs = ImageBank.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(ImageBank_SubCategory, id=sub_id)
-            qs = subid.imagebank_set.all().order_by('-id')
+            qs = subid.imagebank_set.all().order_by('id')
         else:
-            qs = ImageBank.objects.all().order_by('-id')
+            qs = ImageBank.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -1361,9 +1361,9 @@ class WallPosterView(APIView):
             qs = WallPosters.objects.filter(id=userId)
         elif sub_id:
             subid = get_object_or_404(WallPoster_SubCategory, id=sub_id)
-            qs = subid.wallposters_set.all().order_by('-id')
+            qs = subid.wallposters_set.all().order_by('id')
         else:
-            qs = WallPosters.objects.all().order_by('-id')
+            qs = WallPosters.objects.all().order_by('id')
 
         for data in qs:
             response[data.id] = {
@@ -1405,4 +1405,333 @@ class WallPosterView(APIView):
             get_object_or_404(WallPosters, id=request.GET.get('id')).delete()
         else:
             get_object_or_404(WallPosters, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class DailyBoostBannerView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = DailyBoostBanner.objects.filter(id=userId)
+        else:
+            qs = DailyBoostBanner.objects.all().order_by('id')
+
+        for data in qs:
+            response[data.id] = {
+                "id": data.id,
+                "title": data.title,
+                "banner": data.banner.url if data.banner else "no banner"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = DailyBoostBannerSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered DailyBoostBanner"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = DailyBoostBanner.objects.get(id=userId)
+        except DailyBoostBanner.DoesNotExist:
+            return Response({"error": "DailyBoostBanner ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = DailyBoostBannerSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(DailyBoostBanner, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(DailyBoostBanner, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class QuestionOfTheDayView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = QuestionOfTheDay.objects.filter(id=userId)
+        else:
+            qs = QuestionOfTheDay.objects.all().order_by('id')
+        for data in qs:
+            response[data.id] = {
+                "id": data.id,
+                "Question": data.Question,
+                "Answer1": data.Answer1,
+                "Answer2": data.Answer2,
+                "Answer3": data.Answer3,
+                "Answer4": data.Answer4,
+                "CorrectAnswer": data.CorrectAnswer,
+                "Explanation": data.Explanation,
+                "image": data.Image.url if data.Image else "no image"
+
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = QuestionOfTheDaySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered QuestionOfTheDay"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = QuestionOfTheDay.objects.get(id=userId)
+        except QuestionOfTheDay.DoesNotExist:
+            return Response({"error": "QuestionOfTheDay ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuestionOfTheDaySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(QuestionOfTheDay, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(QuestionOfTheDay, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class DailyBoosterQuizView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = DailyBoosterQuiz.objects.filter(id=userId)
+        else:
+            qs = DailyBoosterQuiz.objects.all().order_by('id')
+        for data in qs:
+            response[data.id] = {
+                "id": data.id,
+                "question": data.question,
+                "answer1": data.answer1,
+                "answer2": data.answer2,
+                "answer3": data.answer3,
+                "answer4": data.answer4,
+                "correctanswer": data.correctanswer,
+                "explanation": data.explanation,
+                "timer": data.timer,
+                "image": data.image.url if data.image else "no image"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = DailyBoosterQuizSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered DailyBoosterQuiz"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = DailyBoosterQuiz.objects.get(id=userId)
+        except DailyBoosterQuiz.DoesNotExist:
+            return Response({"error": "DailyBoosterQuiz ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = DailyBoosterQuizSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(DailyBoosterQuiz, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(DailyBoosterQuiz, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class QuestionBank_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(QuestionBank_CategorySerializer(get_object_or_404(QuestionBank_Category, id=userId), many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = QuestionBank_CategorySerializer(QuestionBank_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = QuestionBank_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered QuestionBank_Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = QuestionBank_Category.objects.get(id=userId)
+        except QuestionBank_Category.DoesNotExist:
+            return Response({"error": "QuestionBank_Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuestionBank_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(QuestionBank_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(QuestionBank_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class QuestionBank_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = QuestionBank_SubCategory.objects.filter(id=userId)
+        else:
+            qs = QuestionBank_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category_id": data.category.id,
+                "category_name": data.category.name,
+                "name": data.name
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = QuestionBank_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered QuestionBank_SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = QuestionBank_SubCategory.objects.get(id=userId)
+        except QuestionBank_SubCategory.DoesNotExist:
+            return Response({"error": "QuestionBank_SubCategory ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuestionBank_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(QuestionBank_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(QuestionBank_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class QuestionBankView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = QuestionBank.objects.filter(id=userId)
+        else:
+            qs = QuestionBank.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "sub_category_id": data.category.id,
+                "sub_category_name": data.category.name,
+                "examtype": data.examtype,
+                "numberofmcqs": data.numberofmcqs,
+                "question": data.question,
+                "answer1": data.answer1,
+                "answer2": data.answer2,
+                "answer3": data.answer3,
+                "answer4": data.answer4,
+                "correctanswer": data.correctanswer,
+                "explanation": data.explanation,
+                "image": data.image.url if data.image else "no image"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = QuestionBank_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered QuestionBank"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = QuestionBank.objects.get(id=userId)
+        except QuestionBank.DoesNotExist:
+            return Response({"error": "QuestionBank ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuestionBank_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(QuestionBank, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(QuestionBank, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
