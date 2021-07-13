@@ -281,3 +281,68 @@ class QuestionBank(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+
+# ---------------------------- new changes 13 july--------------
+class PrimeClassVideo_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassVideo_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassVideo_Category)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassVideo(models.Model):
+    sub_category = models.ForeignKey(PrimeClassVideo_SubCategory)
+    title = models.CharField(max_length=200)
+    video = models.FileField(upload_to=f'Videos/PrimeClass/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+class PrimeClassAudio_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassAudio_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassAudio_Category)
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassAudio(models.Model):
+    sub_category = models.ForeignKey(PrimeClassAudio_SubCategory)
+    title = models.CharField(max_length=200)
+    audio = models.FileField(upload_to=f'Audios/PrimeClass/')
+    
+    def __str__(self):
+        return "%s" % (self.title)
+class PrimeClassNotes_Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassNotes_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassNotes_Category)
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return "%s" % (self.name)
+
+class PrimeClassNotes(models.Model):
+    sub_category = models.ForeignKey(PrimeClassNotes_SubCategory)
+    title = models.CharField(max_length=200)
+    pdf = models.FileField(upload_to=f'Notes/PrimeClass/')
+
+    def __str__(self):
+        return "%s" % (self.title) 

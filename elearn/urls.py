@@ -36,4 +36,17 @@ urlpatterns = [
     path('QuestionBank_SubCategory/', QuestionBank_SubCategoryView.as_view(), name="QuestionBank_SubCategoryView"),
     path('QuestionBank/', QuestionBankView.as_view(), name="QuestionBankView"),
 
+
+    path('PrimeClassVideo_Category/', PrimeClassVideo_CategoryView.as_view(), name="PrimeClassVideo_CategoryView"),
+    path('PrimeClassVideo_SubCategory/', PrimeClassVideo_SubCategoryView.as_view(), name="PrimeClassVideo_SubCategoryView"),
+    path('PrimeClassVideo/', PrimeClassVideoView.as_view(), name="PrimeClassVideoView"),
+
+    path('PrimeClassAudio_Category/', PrimeClassAudio_CategoryView.as_view(), name="PrimeClassAudio_CategoryView"),
+    path('PrimeClassAudio_SubCategory/', PrimeClassAudio_SubCategoryView.as_view(), name="PrimeClassAudioSubCategoryView"),
+    path('PrimeClassAudio/', PrimeClassAudioView.as_view(), name="PrimeClassAudioView"),
+
+    path('PrimeClassNotes_Category/', PrimeClassNotes_CategoryView.as_view(), name="PrimeClassNotes_CategoryView"),
+    path('PrimeClassNotes_SubCategory/', PrimeClassNotes_SubCategoryView.as_view(), name="PrimeClassNotes_SubCategoryView"),
+    path('PrimeClassNotes/', PrimeClassNotesView.as_view(), name="PrimeClassNotesView"),
+
 ]

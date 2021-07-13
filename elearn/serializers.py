@@ -198,3 +198,62 @@ class QuestionBank_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank
         fields = '__all__'
+
+
+# -------------------- new changes 13 july-  --------------------------------------   
+class PrimeClassVideo_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassVideo_Category
+        fields = '__all__'
+
+
+class PrimeClassVideo_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassVideo_SubCategory
+        fields = '__all__'
+
+class PrimeClassVideo_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassVideo
+        fields = '__all__'
+
+class PrimeClassAudio_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassAudio_Category
+        fields = '__all__'
+
+
+class PrimeClassAudio_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassAudio_SubCategory
+        fields = '__all__'
+
+class PrimeClassAudio_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassAudio
+        fields = '__all__'
+
+class PrimeClassNotes_CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassNotes_Category
+        fields = '__all__'
+
+
+class PrimeClassNotes_SubCategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassNotes_SubCategory
+        fields = '__all__'
+
+class PrimeClassNotes_Serializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model =  PrimeClassNotes
+        fields = '__all__'

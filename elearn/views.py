@@ -1738,3 +1738,468 @@ class QuestionBankView(APIView):
         else:
             get_object_or_404(QuestionBank, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class PrimeClassVideo_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(PrimeClassVideo_CategorySerializer(get_object_or_404(PrimeClassVideo_Category, id=userId), many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = PrimeClassVideo_CategorySerializer(PrimeClassVideo_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassVideo_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassVideo_Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassVideo_Category.objects.get(id=userId)
+        except PrimeClassVideo_Category.DoesNotExist:
+            return Response({"error": "PrimeClassVideo_Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassVideo_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassVideo_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassVideo_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class PrimeClassVideo_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassVideo_SubCategory.objects.filter(id=userId)
+        else:
+            qs = PrimeClassVideo_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category_id": data.category.id,
+                "category_name": data.category.name,
+                "name": data.name
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassVideo_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassVideo_SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassVideo_SubCategory.objects.get(id=userId)
+        except PrimeClassVideo_SubCategory.DoesNotExist:
+            return Response({"error": "PrimeClassVideo_SubCategory ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassVideo_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassVideo_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassVideo_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class PrimeClassVideoView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassVideo.objects.filter(id=userId)
+        else:
+            qs = PrimeClassVideo.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "sub_category_id": data.category.id,
+                "sub_category_name": data.category.name,
+                "title": data.title,        
+                "video": data.video.url if data.video else "no video"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassVideo_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassVideo"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassVideo.objects.get(id=userId)
+        except PrimeClassVideo.DoesNotExist:
+            return Response({"error": "PrimeClassVideo ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassVideo_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassVideo, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassVideo, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class PrimeClassAudio_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(PrimeClassAudio_CategorySerializer(get_object_or_404(PrimeClassAudio_Category, id=userId), many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = PrimeClassAudio_CategorySerializer(PrimeClassAudio_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassAudio_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassAudio_Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassAudio_Category.objects.get(id=userId)
+        except PrimeClassAudio_Category.DoesNotExist:
+            return Response({"error": "PrimeClassAudio_Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassAudio_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassAudio_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassAudio_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class PrimeClassAudio_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassAudio_SubCategory.objects.filter(id=userId)
+        else:
+            qs = PrimeClassAudio_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category_id": data.category.id,
+                "category_name": data.category.name,
+                "name": data.name
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassAudio_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassAudio_SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassAudio_SubCategory.objects.get(id=userId)
+        except PrimeClassAudio_SubCategory.DoesNotExist:
+            return Response({"error": "PrimeClassAudio_SubCategory ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassAudio_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassAudio_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassAudio_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class PrimeClassAudioView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassAudio.objects.filter(id=userId)
+        else:
+            qs = PrimeClassAudio.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "sub_category_id": data.category.id,
+                "sub_category_name": data.category.name,
+                "title": data.title,        
+                "audio": data.audio.url if data.audio else "no audio"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassAudio_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassAudio"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassAudio.objects.get(id=userId)
+        except PrimeClassAudio.DoesNotExist:
+            return Response({"error": "PrimeClassAudio ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassAudio_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassAudio, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassAudio, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+class PrimeClassNotes_CategoryView(APIView):
+
+    def get(self, request, format=None):
+        userId = request.GET.get('id')
+        if userId:
+            return Response(PrimeClassNotes_CategorySerializer(get_object_or_404(PrimeClassNotes_Category, id=userId), many=False).data,
+                            status=status.HTTP_200_OK)
+
+        serializer = PrimeClassNotes_CategorySerializer(PrimeClassNotes_Category.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassNotes_CategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassNotes_Category"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassNotes_Category.objects.get(id=userId)
+        except PrimeClassNotes_Category.DoesNotExist:
+            return Response({"error": "PrimeClassNotes_Category ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassNotes_CategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassNotes_Category, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassNotes_Category, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class PrimeClassNotes_SubCategoryView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassNotes_SubCategory.objects.filter(id=userId)
+        else:
+            qs = PrimeClassNotes_SubCategory.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "category_id": data.category.id,
+                "category_name": data.category.name,
+                "name": data.name
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassNotes_SubCategorySerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassNotes_SubCategory"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassNotes_SubCategory.objects.get(id=userId)
+        except PrimeClassNotes_SubCategory.DoesNotExist:
+            return Response({"error": "PrimeClassNotes_SubCategory ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassNotes_SubCategorySerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassNotes_SubCategory, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassNotes_SubCategory, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class PrimeClassNotesView(APIView):
+    
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassNotes.objects.filter(id=userId)
+        else:
+            qs = PrimeClassNotes.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "sub_category_id": data.category.id,
+                "sub_category_name": data.category.name,
+                "title": data.title,        
+                "pdf": data.pdf.url if data.pdf else "no pdf"
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassNotes_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassNotes"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassNotes.objects.get(id=userId)
+        except PrimeClassNotes.DoesNotExist:
+            return Response({"error": "PrimeClassNotes ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassNotes_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request, format=None):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassNotes, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassNotes, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
