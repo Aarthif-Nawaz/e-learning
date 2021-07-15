@@ -3056,8 +3056,8 @@ class QuestionBankPreviousQuestionsView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "sub_category_id": data.category.id,
-                "sub_category_name": data.category.name,
+                "sub_category_id": data.sub_category.id,
+                "sub_category_name": data.sub_category.name,
                 "title": data.title,
                 "pdf": data.pdf.url if data.pdf else "no pdf"
             }

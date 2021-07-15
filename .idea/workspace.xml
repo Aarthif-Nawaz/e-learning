@@ -21,11 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3021a0e5-a9d4-4a75-90c0-9d0a1d2ac911" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +104,7 @@
       <workItem from="1626218329288" duration="1252000" />
       <workItem from="1626231799512" duration="3758000" />
       <workItem from="1626246239892" duration="3815000" />
-      <workItem from="1626290396487" duration="24667000" />
+      <workItem from="1626290396487" duration="25599000" />
     </task>
     <servers />
   </component>
