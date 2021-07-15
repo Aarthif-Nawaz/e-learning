@@ -20,6 +20,7 @@ from django.core import serializers
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.contrib.sessions.backends.db import SessionStore
 
+
 class RegistrationView(APIView):
 
     def get(self, request, format=None):
@@ -72,6 +73,7 @@ class RegistrationView(APIView):
 
 
 class Login(APIView):
+
     def post(self, request):
         data = request.data
         finding_exising_user = User.objects.filter(Q(mobile__iexact=data.get('mobile')))
@@ -79,8 +81,7 @@ class Login(APIView):
             return Response({"message": "Successfully Logged In"},
                             status=status.HTTP_200_OK)
         else:
-            return Response({'message': 'No Such mobile exists'}, status=status.HTTP_200_OK)
-
+            return Response({'message': 'No Such mobile exists'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ShotsView(APIView):
@@ -1767,7 +1768,7 @@ class DailyBoosterTimerQuizView(APIView):
         date = request.GET.get('date')
         user_id = request.GET.get('user_id')
         if date and user_id:
-            qs = DailyBoosterQuizTimer.objects.filter(Q(date__exact=date) and Q(user_id=user_id)).order_by('date')
+            qs = DailyBoosterQuizTimer.objects.filter(date__exact=date, user_id=user_id).order_by('date')
         else:
             qs = DailyBoosterQuizTimer.objects.filter(date__exact=date).order_by('date')
         for data in qs:
@@ -1783,7 +1784,8 @@ class DailyBoosterTimerQuizView(APIView):
         data = request.data
         user_id = request.GET.get('user_id')
         if data.get('date') and user_id:
-            finding_exising_date_detail = DailyBoosterQuizTimer.objects.filter(Q(date__exact=data.get('date')) and Q(user_id=user_id))
+            finding_exising_date_detail = DailyBoosterQuizTimer.objects.filter(date__exact=data.get('date'),
+                                                                               user_id=user_id)
             if finding_exising_date_detail.exists():
                 return Response({"message": "Date Already Exists"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -1807,7 +1809,7 @@ class DailyBoosterCompletedQuizView(APIView):
         date = request.GET.get('date')
         user_id = request.GET.get('user_id')
         if date and user_id:
-            qs = DailyBoosterCompleted.objects.filter(Q(date__exact=date) and Q(user_id=user_id)).order_by('date')
+            qs = DailyBoosterCompleted.objects.filter(date__exact=date, user_id=user_id).order_by('date')
         else:
             qs = DailyBoosterCompleted.objects.filter(date__exact=date).order_by('date')
         for data in qs:
@@ -1824,8 +1826,8 @@ class DailyBoosterCompletedQuizView(APIView):
         data = request.data
         user_id = request.GET.get('user_id')
         if data.get('date') and user_id:
-            finding_exising_date_detail = DailyBoosterCompleted.objects.filter(
-                Q(date__exact=data.get('date')) and Q(user_id=user_id))
+            finding_exising_date_detail = DailyBoosterCompleted.objects.filter(date__exact=data.get('date'),
+                                                                               user_id=user_id)
             if finding_exising_date_detail.exists():
                 return Response({"message": "Date Already Exists"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -2020,8 +2022,8 @@ class QuestionBankModeView(APIView):
         if Id:
             qs = QuestionBankMode.objects.filter(id=Id)
         elif level and sub_cat and type:
-            qs = QuestionBankMode.objects.filter(
-                Q(level__exact=level) and Q(sub_category_id=sub_cat) and Q(examtype__exact=type)).order_by('id')
+            qs = QuestionBankMode.objects.filter(level__exact=level, sub_category_id=sub_cat,
+                                                 examtype__exact=type).order_by('id')
         elif level:
             qs = QuestionBankMode.objects.filter(level__exact=level).order_by('id')
         elif sub_cat:
@@ -2095,8 +2097,8 @@ class QuestionBankTestModeView(APIView):
         if Id:
             qs = QuestionBankTestMode.objects.filter(id=Id)
         elif level and sub_cat and type:
-            qs = QuestionBankTestMode.objects.filter(
-                Q(level__exact=level) and Q(sub_category_id=sub_cat) and Q(examtype__exact=type)).order_by('id')
+            qs = QuestionBankTestMode.objects.filter(level__exact=level, sub_category_id=sub_cat,
+                                                     examtype__exact=type).order_by('id')
         elif level:
             qs = QuestionBankTestMode.objects.filter(level__exact=level).order_by('id')
         elif sub_cat:
@@ -2166,20 +2168,22 @@ class QuestionBankTimerQuizView(APIView):
         user_id = request.GET.get('user_id')
         mode = request.GET.get('mode')
         if date and user_id and mode and timer:
-            qs = QuestionBankQuizTimer.objects.filter(
-                Q(date__exact=date) and Q(question_bank__user_id=user_id) and Q(question_bank__exam_mode__exact=mode) and Q(timer__exact=timer)).order_by('date')
+            qs = QuestionBankQuizTimer.objects.filter(date__exact=date, question_bank__user_id=user_id,
+                                                      question_bank__exam_mode__exact=mode,
+                                                      timer__exact=timer).order_by('date')
         elif date and user_id and mode:
-            qs = QuestionBankQuizTimer.objects.filter(
-                Q(date__exact=date) and Q(question_bank__user_id=user_id) and Q(question_bank__exam_mode__exact=mode)).order_by('date')
+            qs = QuestionBankQuizTimer.objects.filter(date__exact=date, question_bank__user_id=user_id,
+                                                      question_bank__exam_mode__exact=mode).order_by('date')
         elif user_id and mode:
-            qs = QuestionBankQuizTimer.objects.filter(Q(question_bank__user_id=user_id) and Q(question_bank__exam_mode__exact=mode)).order_by('user_id')
+            qs = QuestionBankQuizTimer.objects.filter(question_bank__user_id=user_id,
+                                                      question_bank__exam_mode__exact=mode).order_by('user_id')
         else:
             qs = QuestionBankQuizTimer.objects.filter(date__exact=date).order_by('date')
         for data in qs:
             response[data.id] = {
                 "id": data.id,
                 "mode": data.question_bank.exam_mode,
-                "type":data.question_bank.examtype,
+                "type": data.question_bank.examtype,
                 "date": data.date,
                 "timer": data.timer,
                 "user_id": data.question_bank.user.id
@@ -2208,10 +2212,11 @@ class QuestionBankCompletedQuizView(APIView):
         user_id = request.GET.get('user_id')
         mode = request.GET.get('mode')
         if date and user_id and mode:
-            qs = QuestionBankCompleted.objects.filter(
-                Q(date__exact=date) and Q(question_bank__exam_mode__exact=user_id) and Q(question_bank__exam_mode__exact=mode)).order_by('date')
+            qs = QuestionBankCompleted.objects.filter(date__exact=date, question_bank__user_id=user_id,
+                                                      question_bank__exam_mode__exact=mode).order_by('date')
         elif user_id and mode:
-            qs = QuestionBankCompleted.objects.filter(Q(question_bank__exam_mode__exact=user_id) and Q(question_bank__exam_mode__exact=mode)).order_by('date')
+            qs = QuestionBankCompleted.objects.filter(question_bank__user_id=user_id,
+                                                      question_bank__exam_mode__exact=mode).order_by('date')
         else:
             qs = QuestionBankCompleted.objects.filter(date__exact=date).order_by('date')
         for data in qs:
@@ -2222,7 +2227,7 @@ class QuestionBankCompletedQuizView(APIView):
                 "date": data.date,
                 "correct": data.correct,
                 "wrong": data.wrong,
-                "user_id":data.question_bank.user.id
+                "user_id": data.question_bank.user.id
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 

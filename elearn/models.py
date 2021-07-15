@@ -5,8 +5,8 @@ class User(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=20)
     email = models.EmailField(max_length=200)
-    college = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
+    college = models.CharField(max_length=200, null=True)
+    location = models.CharField(max_length=200, null=True)
 
     def _str_(self):
         return "%s" % (self.name)

@@ -21,6 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3021a0e5-a9d4-4a75-90c0-9d0a1d2ac911" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elearn/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elearn/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +107,7 @@
       <workItem from="1626231799512" duration="3758000" />
       <workItem from="1626246239892" duration="3815000" />
       <workItem from="1626290396487" duration="25599000" />
+      <workItem from="1626378614520" duration="5091000" />
     </task>
     <servers />
   </component>
@@ -121,6 +124,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" width="1089" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1625967428938">
