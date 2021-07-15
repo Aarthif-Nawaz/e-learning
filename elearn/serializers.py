@@ -170,6 +170,12 @@ class QuestionOfTheDaySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DailyBoosterMainSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterMain
+        fields = '__all__'
+
+
 class DailyBoostBannerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyBoostBanner
@@ -179,6 +185,18 @@ class DailyBoostBannerSerializer(serializers.ModelSerializer):
 class DailyBoosterQuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyBoosterQuiz
+        fields = '__all__'
+
+
+class DailyBoosterQuizTimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterQuizTimer
+        fields = '__all__'
+
+
+class DailyBoosterQuizCompletedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterCompleted
         fields = '__all__'
 
 
@@ -198,3 +216,139 @@ class QuestionBank_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank
         fields = '__all__'
+
+
+class PrimeClassVideo_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassVideo_Category
+        fields = '__all__'
+
+
+class PrimeClassVideo_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassVideo_SubCategory
+        fields = '__all__'
+
+
+class PrimeClassVideo_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassVideo
+        fields = '__all__'
+
+
+class PrimeClassAudio_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassAudio_Category
+        fields = '__all__'
+
+
+class PrimeClassAudio_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassAudio_SubCategory
+        fields = '__all__'
+
+
+class PrimeClassAudio_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassAudio
+        fields = '__all__'
+
+
+class PrimeClassNotes_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassNotes_Category
+        fields = '__all__'
+
+
+class PrimeClassNotes_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassNotes_SubCategory
+        fields = '__all__'
+
+
+class PrimeClassNotes_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassNotes
+        fields = '__all__'
+
+    # ----------------Live class  13 july ---
+
+
+class LiveClassBannerImage_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveClassBannerImage
+        fields = '__all__'
+
+
+class LiveClass_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveClass_Category
+        fields = '__all__'
+
+
+class LiveClass_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveClass_SubCategory
+        fields = '__all__'
+
+
+class LiveClass_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveClass
+        fields = '__all__'
+
+
+# --------------- QuestionBankPreviousQuestions
+
+class QuestionBankPreviousQuestions_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankPreviousQuestions_Category
+        fields = '__all__'
+
+
+class QuestionBankPreviousQuestions_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankPreviousQuestions_SubCategory
+        fields = '__all__'
+
+
+class QuestionBankPreviousQuestions_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankPreviousQuestions
+        fields = '__all__'
+
+
+class QuestionDiscussion_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionDiscussion
+        fields = '__all__'
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '_all_'
+
+
+class QuestionBankTestModeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankTestMode
+        fields = '_all_'
+
+
+class QuestionBankModeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankMode
+        fields = '_all_'
+
+
+class QuestionBankQuizTimerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankQuizTimer
+        fields = '_all_'
+
+
+class QuestionBankCompletedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionBankCompleted
+        fields = '_all_'

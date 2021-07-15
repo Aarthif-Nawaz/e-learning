@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class User(models.Model):
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=20)
+    email = models.EmailField(max_length=200)
+    college = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+
+    def _str_(self):
+        return "%s" % (self.name)
+
+
 class ShotsCategory(models.Model):
     name = models.CharField(max_length=200)
 
@@ -224,6 +235,7 @@ class DailyBoostBanner(models.Model):
     def __str__(self):
         return "%s" % (self.title)
 
+
 class QuestionOfTheDay(models.Model):
     Question = models.CharField(max_length=200)
     Answer1 = models.CharField(max_length=200)
@@ -237,8 +249,17 @@ class QuestionOfTheDay(models.Model):
     def __str__(self):
         return "%s" % (self.Question)
 
-class DailyBoosterQuiz(models.Model):
+
+class DailyBoosterMain(models.Model):
     banner = models.ForeignKey(DailyBoostBanner, on_delete=models.CASCADE, null=True)
+    timer = models.IntegerField()
+    no_of_mcq = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.timer)
+
+class DailyBoosterQuiz(models.Model):
+    dailyboostdetail = models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
     question = models.CharField(max_length=200)
     answer1 = models.CharField(max_length=200)
     answer2 = models.CharField(max_length=200)
@@ -246,17 +267,37 @@ class DailyBoosterQuiz(models.Model):
     answer4 = models.CharField(max_length=200)
     correctanswer = models.CharField(max_length=200)
     explanation = models.CharField(max_length=200)
-    timer = models.TimeField()
     image = models.ImageField(upload_to=f'Daily/images')
 
     def __str__(self):
         return "%s" % (self.question)
+
+
+class DailyBoosterQuizTimer(models.Model):
+    date = models.DateField()
+    timer = models.TimeField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.date)
+
+
+class DailyBoosterCompleted(models.Model):
+    date = models.DateField()
+    correct = models.IntegerField()
+    wrong = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.date)
+
 
 class QuestionBank_Category(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return "%s" % (self.name)
+
 
 class QuestionBank_SubCategory(models.Model):
     category = models.ForeignKey(QuestionBank_Category, on_delete=models.CASCADE, null=True)
@@ -265,11 +306,25 @@ class QuestionBank_SubCategory(models.Model):
     def __str__(self):
         return "%s" % (self.name)
 
+
 class QuestionBank(models.Model):
-    category = models.ForeignKey(QuestionBank_SubCategory, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
-    examtype = models.CharField(max_length=200)
     numberofmcqs = models.CharField(max_length=200)
+    level = models.CharField(max_length=200, default='Easy')
+    category = models.ForeignKey(QuestionBank_Category, on_delete=models.CASCADE, null=True)
+    sub_category = models.ForeignKey(QuestionBank_SubCategory, on_delete=models.CASCADE, null=True)
+    examtype = models.CharField(max_length=200)
+    exam_mode = models.CharField(max_length=200, default="Q_BankMode")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
+class QuestionBankMode(models.Model):
+    level = models.CharField(max_length=200)
+    sub_category = models.ForeignKey(QuestionBank_SubCategory, on_delete=models.CASCADE, null=True)
+    examtype = models.CharField(max_length=200)
     question = models.CharField(max_length=200)
     answer1 = models.CharField(max_length=200)
     answer2 = models.CharField(max_length=200)
@@ -277,7 +332,183 @@ class QuestionBank(models.Model):
     answer4 = models.CharField(max_length=200)
     correctanswer = models.CharField(max_length=200)
     explanation = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=f'Bank/images')
+    image = models.ImageField(upload_to=f'Q_BANK_MODE/images', null=True)
+
+    def __str__(self):
+        return "%s" % (self.level)
+
+
+class QuestionBankTestMode(models.Model):
+    level = models.CharField(max_length=200)
+    sub_category = models.ForeignKey(QuestionBank_SubCategory, on_delete=models.CASCADE, null=True)
+    examtype = models.CharField(max_length=200)
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    timer = models.IntegerField()
+
+    def __str__(self):
+        return "%s" % (self.examtype)
+
+
+class QuestionBankQuizTimer(models.Model):
+    question_bank = models.ForeignKey(QuestionBank, on_delete=models.CASCADE, null=True)
+    date = models.DateField()
+    timer = models.TimeField()
+
+    def __str__(self):
+        return "%s" % (self.date)
+
+
+class QuestionBankCompleted(models.Model):
+    question_bank = models.ForeignKey(QuestionBank, on_delete=models.CASCADE, null=True)
+    date = models.DateField()
+    correct = models.IntegerField()
+    wrong = models.IntegerField()
+
+    def __str__(self):
+        return "%s" % (self.date)
+
+
+class PrimeClassVideo_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassVideo_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassVideo_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassVideo(models.Model):
+    sub_category = models.ForeignKey(PrimeClassVideo_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    video = models.FileField(upload_to=f'Videos/PrimeClass/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
+class PrimeClassAudio_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassAudio_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassAudio_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassAudio(models.Model):
+    sub_category = models.ForeignKey(PrimeClassAudio_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    audio = models.FileField(upload_to=f'Audios/PrimeClass/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
+class PrimeClassNotes_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassNotes_SubCategory(models.Model):
+    category = models.ForeignKey(PrimeClassNotes_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class PrimeClassNotes(models.Model):
+    sub_category = models.ForeignKey(PrimeClassNotes_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    pdf = models.FileField(upload_to=f'Notes/PrimeClass/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+        # ----------------Live class  13 july ---
+
+
+class LiveClassBannerImage(models.Model):
+    title = models.CharField(max_length=200)
+    bannerimage = models.ImageField(upload_to=f'LiveClassBannerImage/images')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
+class LiveClass_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class LiveClass_SubCategory(models.Model):
+    category = models.ForeignKey(LiveClass_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class LiveClass(models.Model):
+    banner = models.ForeignKey(LiveClassBannerImage, on_delete=models.CASCADE, null=True)
+    sub_category = models.ForeignKey(LiveClass_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    video = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+    # ---------------------QuestionBankPreviousQuestions------
+
+
+class QuestionBankPreviousQuestions_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class QuestionBankPreviousQuestions_SubCategory(models.Model):
+    category = models.ForeignKey(QuestionBankPreviousQuestions_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class QuestionBankPreviousQuestions(models.Model):
+    sub_category = models.ForeignKey(QuestionBankPreviousQuestions_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    pdf = models.FileField(upload_to=f'Notes/QuestionBankPreviousQuestions/')
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+
+class QuestionDiscussion(models.Model):
+    title = models.CharField(max_length=200)
+    video = models.FileField(upload_to=f'Videos/QuestionDiscussion/')
 
     def __str__(self):
         return "%s" % (self.title)

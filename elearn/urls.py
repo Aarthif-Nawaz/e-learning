@@ -2,6 +2,9 @@ from django.urls import path
 from elearn.views import *
 
 urlpatterns = [
+    path('signup/', RegistrationView.as_view(), name="Register"),
+    path('login/', Login.as_view(), name="Login"),
+
     path('shots/', ShotsView.as_view(), name="shots register"),
     path('shots_category/', ShotsCategoryView.as_view(), name="shots category register"),
     path('shots_sub_category/', ShotsSubCategoryView.as_view(), name="shots sub category register"),
@@ -29,11 +32,39 @@ urlpatterns = [
     path('wall_poster_category/', WallPoster_CategoryView.as_view(), name="wall poster category register"),
     path('wall_poster_sub_category/', WallPoster_SubCategoryView.as_view(), name="wall poster sub category register"),
     path('wall_poster/', WallPosterView.as_view(), name="wall poster register"),
-    path('DailyBoostBanner/', DailyBoostBannerView.as_view(), name="DailyBoostBanner"),
+
     path('QuestionOfTheDay/', QuestionOfTheDayView.as_view(), name="QuestionOfTheDayView"),
+
+    path('DailyBoostBanner/', DailyBoostBannerView.as_view(), name="DailyBoostBanner"),
+    path('DailyBoostMain/', DailyBoosterMainView.as_view(), name="DailyBoostMain"),
     path('DailyBoosterQuiz/', DailyBoosterQuizView.as_view(), name="DailyBoosterQuizView"),
+    path('DailyBoosterQuizTimer/', DailyBoosterTimerQuizView.as_view(), name="DailyBoosterQuizTimerView"),
+    path('DailyBoosterQuizCompleted/', DailyBoosterCompletedQuizView.as_view(), name="DailyBoosterQuizView"),
+
     path('QuestionBank_Category/', QuestionBank_CategoryView.as_view(), name="QuestionBank_CategoryView"),
     path('QuestionBank_SubCategory/', QuestionBank_SubCategoryView.as_view(), name="QuestionBank_SubCategoryView"),
     path('QuestionBank/', QuestionBankView.as_view(), name="QuestionBankView"),
+    path('QuestionBank_QBank_Mode/', QuestionBankModeView.as_view(), name="QuestionBankModeView"),
+    path('QuestionBank_TestMode/', QuestionBankTestModeView.as_view(), name="QuestionBankTestModeView"),
+    path('QuestionBank_QuizTimer/', QuestionBankTimerQuizView.as_view(), name="QuestionBankTimerQuizView"),
+    path('QuestionBank_Completed/', QuestionBankCompletedQuizView.as_view(), name="QuestionBankCompletedQuizView"),
+
+    path('PrimeClassVideo_Category/', PrimeClassVideo_CategoryView.as_view(), name="PrimeClassVideo_CategoryView"),
+    path('PrimeClassVideo_SubCategory/', PrimeClassVideo_SubCategoryView.as_view(), name="PrimeClassVideo_SubCategoryView"),
+    path('PrimeClassVideo/', PrimeClassVideoView.as_view(), name="PrimeClassVideoView"),
+    path('PrimeClassAudio_Category/', PrimeClassAudio_CategoryView.as_view(), name="PrimeClassAudio_CategoryView"),
+    path('PrimeClassAudio_SubCategory/', PrimeClassAudio_SubCategoryView.as_view(), name="PrimeClassAudioSubCategoryView"),
+    path('PrimeClassAudio/', PrimeClassAudioView.as_view(), name="PrimeClassAudioView"),
+    path('PrimeClassNotes_Category/', PrimeClassNotes_CategoryView.as_view(), name="PrimeClassNotes_CategoryView"),
+    path('PrimeClassNotes_SubCategory/', PrimeClassNotes_SubCategoryView.as_view(), name="PrimeClassNotes_SubCategoryView"),
+    path('PrimeClassNotes/', PrimeClassNotesView.as_view(), name="PrimeClassNotesView"),
+    path('LiveClassBannerImage/', LiveClassBannerImageView.as_view(), name="LiveClassBannerImageView"),
+    path('LiveClass_Category/', LiveClass_CategoryView.as_view(), name="LiveClass_CategoryView"),
+    path('LiveClass_SubCategory/', LiveClass_SubCategoryView.as_view(), name="LiveClass_SubCategoryView"),
+    path('LiveClass/', LiveClassView.as_view(), name="LiveClassView"),
+    path('QuestionBankPreviousQuestions_Category/', QuestionBankPreviousQuestions_CategoryView.as_view(), name="QuestionBankPreviousQuestions_CategoryView"),
+    path('QuestionBankPreviousQuestions_SubCategory/', QuestionBankPreviousQuestions_SubCategoryView.as_view(), name="QuestionBankPreviousQuestions_SubCategoryView"),
+    path('QuestionBankPreviousQuestions/', QuestionBankPreviousQuestionsView.as_view(), name="QuestionBankPreviousQuestionsView"),
+    path('QuestionDiscussion/', QuestionDiscussionView.as_view(), name="QuestionDiscussionView"),
 
 ]
