@@ -2376,8 +2376,8 @@ class PrimeClassVideoView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "sub_category_id": data.category.id,
-                "sub_category_name": data.category.name,
+                "sub_category_id": data.sub_category.id,
+                "sub_category_name": data.sub_category.name,
                 "title": data.title,
                 "video": data.video.url if data.video else "no video"
             }
@@ -2535,8 +2535,8 @@ class PrimeClassAudioView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "sub_category_id": data.category.id,
-                "sub_category_name": data.category.name,
+                "sub_category_id": data.sub_category.id,
+                "sub_category_name": data.sub_category.name,
                 "title": data.title,
                 "audio": data.audio.url if data.audio else "no audio"
             }
@@ -2694,8 +2694,8 @@ class PrimeClassNotesView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "sub_category_id": data.category.id,
-                "sub_category_name": data.category.name,
+                "sub_category_id": data.sub_category.id,
+                "sub_category_name": data.sub_category.name,
                 "title": data.title,
                 "pdf": data.pdf.url if data.pdf else "no pdf"
             }
@@ -2855,8 +2855,8 @@ class LiveClassView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "sub_category_id": data.category.id,
-                "sub_category_name": data.category.name,
+                "sub_category_id": data.sub_category.id,
+                "sub_category_name": data.sub_category.name,
                 "banner": data.banner.bannerimage.url,
                 "title": data.title,
                 "video": data.video,
