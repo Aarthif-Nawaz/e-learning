@@ -91,5 +91,9 @@ urlpatterns = [
     path('PrimeClassNotesbookMark/', PrimeClassNotesbookMarkView.as_view(), name="PrimeClassNotesbookMarkView"),
     path('LiveClassbookMark/', LiveClassbookMarkView.as_view(), name="LiveClassbookMarkView"),
     path('QuestionDiscussionbookMark/', QuestionDiscussionbookMarkView.as_view(),name="QuestionDiscussionbookMarkView"),
-
+   
+    path('ICardsPastPaper_Category/', ICardsPastPaper_CategoryView.as_view(), name="ICardsPastPaper_CategoryView"),
+    path('ICardsPastPaper_SubCategory/', ICardsPastPaper_SubCategoryView.as_view(), name="ICardsPastPaper_SubCategoryView"),
+    path('ICardsPastPaper/', ICardsPastPaperView.as_view(), name="ICardsPastPaperView"),
+  
 ]
