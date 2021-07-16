@@ -3165,3 +3165,1269 @@ class QuestionDiscussionView(APIView):
         else:
             get_object_or_404(QuestionDiscussion, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+# ----------------------15 july changes ------------
+
+
+class ShotsbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ShotsbookMark.objects.filter(id=userId)
+        else:
+            qs = ShotsbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "shots_title": data.shots.title,
+                "Shots_id": data.shots.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ShotsbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ShotsbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ShotsbookMark.objects.get(id=userId)
+        except ShotsbookMark.DoesNotExist:
+            return Response({"error": "ShotsbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ShotsbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ShotsbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ShotsbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ShotsLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ShotsLiked.objects.filter(id=userId)
+        else:
+            qs = ShotsLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "shots_title": data.shots.title,
+                "Shots_id": data.shots.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ShotsLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ShotsLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ShotsLiked.objects.get(id=userId)
+        except ShotsLiked.DoesNotExist:
+            return Response({"error": "ShotsLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ShotsLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ShotsLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ShotsLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class Diff_DigbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Diff_DigbookMark.objects.filter(id=userId)
+        else:
+            qs = Diff_DigbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Diff_Dig_title": data.Diff_Dig.title,
+                "Diff_Dig_id": data.Diff_Dig.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Diff_DigbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Diff_DigbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Diff_DigbookMark.objects.get(id=userId)
+        except Diff_DigbookMark.DoesNotExist:
+            return Response({"error": "Diff_DigbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Diff_DigbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(Diff_DigbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Diff_DigbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class Diff_DigLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Diff_DigLiked.objects.filter(id=userId)
+        else:
+            qs = Diff_DigLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Diff_Dig_title": data.Diff_Dig.title,
+                "Diff_Dig_id": data.Diff_Dig.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Diff_DigLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Diff_DigLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Diff_DigLiked.objects.get(id=userId)
+        except Diff_DigLiked.DoesNotExist:
+            return Response({"error": "Diff_DigLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Diff_DigLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(Diff_DigLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Diff_DigLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class Recent_UpdatesbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Recent_UpdatesbookMark.objects.filter(id=userId)
+        else:
+            qs = Recent_UpdatesbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Recent_Updates_title": data.Recent_Updates.title,
+                "Recent_Updates_id": data.Recent_Updates.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Recent_UpdatesbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Recent_UpdatesbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Recent_UpdatesbookMark.objects.get(id=userId)
+        except Recent_UpdatesbookMark.DoesNotExist:
+            return Response({"error": "Recent_UpdatesbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Recent_UpdatesbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(Recent_UpdatesbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Recent_UpdatesbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class Recent_UpdatesLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = Recent_UpdatesLiked.objects.filter(id=userId)
+        else:
+            qs = Recent_UpdatesLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Recent_Updates_title": data.Recent_Updates.title,
+                "Recent_Updates_id": data.Recent_Updates.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = Recent_UpdatesLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered Recent_UpdatesLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = Recent_UpdatesLiked.objects.get(id=userId)
+        except Recent_UpdatesLiked.DoesNotExist:
+            return Response({"error": "Recent_UpdatesLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = Recent_UpdatesLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(Recent_UpdatesLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(Recent_UpdatesLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ValuesbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ValuesbookMark.objects.filter(id=userId)
+        else:
+            qs = ValuesbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Values_title": data.Values.title,
+                "Values_id": data.Values.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ValuesbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ValuesbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ValuesbookMark.objects.get(id=userId)
+        except ValuesbookMark.DoesNotExist:
+            return Response({"error": "ValuesbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ValuesbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ValuesbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ValuesbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ValuesLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ValuesLiked.objects.filter(id=userId)
+        else:
+            qs = ValuesLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Values_title": data.Values.title,
+                "Values_id": data.Values.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ValuesLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ValuesLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ValuesLiked.objects.get(id=userId)
+        except ValuesLiked.DoesNotExist:
+            return Response({"error": "ValuesLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ValuesLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ValuesLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ValuesLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class ICardsPDFbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsPDFbookMark.objects.filter(id=userId)
+        else:
+            qs = ICardsPDFbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsPDF_title": data.ICardsPDF.title,
+                "ICardsPDF_id": data.ICardsPDF.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsPDFbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsPDFbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsPDFbookMark.objects.get(id=userId)
+        except ICardsPDFbookMark.DoesNotExist:
+            return Response({"error": "ICardsPDFbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsPDFbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsPDFbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsPDFbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ICardsPDFLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsPDFLiked.objects.filter(id=userId)
+        else:
+            qs = ICardsPDFLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsPDF_title": data.ICardsPDF.title,
+                "ICardsPDF_id": data.ICardsPDF.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsPDFLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsPDFLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsPDFLiked.objects.get(id=userId)
+        except ICardsPDFLiked.DoesNotExist:
+            return Response({"error": "ICardsPDFLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsPDFLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsPDFLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsPDFLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class ICardsAudiobookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsAudiobookMark.objects.filter(id=userId)
+        else:
+            qs = ICardsAudiobookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsAudio_title": data.ICardsAudio.title,
+                "ICardsAudio_id": data.ICardsAudio.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsAudiobookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsAudiobookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsAudiobookMark.objects.get(id=userId)
+        except ICardsAudiobookMark.DoesNotExist:
+            return Response({"error": "ICardsAudiobookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsAudiobookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsAudiobookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsAudiobookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ICardsAudioLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsAudioLiked.objects.filter(id=userId)
+        else:
+            qs = ICardsAudioLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsAudio_title": data.ICardsAudio.title,
+                "ICardsAudio_id": data.ICardsAudio.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsAudioLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsAudioLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsAudioLiked.objects.get(id=userId)
+        except ICardsAudioLiked.DoesNotExist:
+            return Response({"error": "ICardsAudioLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsAudioLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsAudioLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsAudioLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class ICardsVideobookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsVideobookMark.objects.filter(id=userId)
+        else:
+            qs = ICardsVideobookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsVideo_title": data.ICardsVideo.title,
+                "ICardsVideo_id": data.ICardsVideo.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsVideobookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsVideobookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsVideobookMark.objects.get(id=userId)
+        except ICardsVideobookMark.DoesNotExist:
+            return Response({"error": "ICardsVideobookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsVideobookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsVideobookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsVideobookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ICardsVideoLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ICardsVideoLiked.objects.filter(id=userId)
+        else:
+            qs = ICardsVideoLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ICardsVideo_title": data.ICardsVideo.title,
+                "ICardsVideo_id": data.ICardsVideo.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ICardsVideoLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ICardsVideoLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ICardsVideoLiked.objects.get(id=userId)
+        except ICardsVideoLiked.DoesNotExist:
+            return Response({"error": "ICardsVideoLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ICardsVideoLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ICardsVideoLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ICardsVideoLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ImageBankbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ImageBankbookMark.objects.filter(id=userId)
+        else:
+            qs = ImageBankbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ImageBank_title": data.ImageBank.title,
+                "ImageBank_id": data.ImageBank.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ImageBankbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ImageBankbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ImageBankbookMark.objects.get(id=userId)
+        except ImageBankbookMark.DoesNotExist:
+            return Response({"error": "ImageBankbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ImageBankbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ImageBankbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ImageBankbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+class ImageBankLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = ImageBankLiked.objects.filter(id=userId)
+        else:
+            qs = ImageBankLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "ImageBank_title": data.ImageBank.title,
+                "ImageBank_id": data.ImageBank.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = ImageBankLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered ImageBankLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = ImageBankLiked.objects.get(id=userId)
+        except ImageBankLiked.DoesNotExist:
+            return Response({"error": "ImageBankLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = ImageBankLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(ImageBankLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(ImageBankLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class WallPostersbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = WallPostersbookMark.objects.filter(id=userId)
+        else:
+            qs = WallPostersbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "WallPosters_title": data.WallPosters.title,
+                "WallPosters_id": data.WallPosters.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = WallPostersbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered WallPostersbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = WallPostersbookMark.objects.get(id=userId)
+        except WallPostersbookMark.DoesNotExist:
+            return Response({"error": "WallPostersbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = WallPostersbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(WallPostersbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(WallPostersbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class WallPostersLikedView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = WallPostersLiked.objects.filter(id=userId)
+        else:
+            qs = WallPostersLiked.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "WallPosters_title": data.WallPosters.title,
+                "WallPosters_id": data.WallPosters.id,
+                "user_id": data.user.id,
+                "liked_status": data.liked_status          
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = WallPostersLiked_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered WallPostersLiked"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = WallPostersLiked.objects.get(id=userId)
+        except WallPostersLiked.DoesNotExist:
+            return Response({"error": "WallPostersLiked ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = WallPostersLiked_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(WallPostersLiked, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(WallPostersLiked, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class PrimeClassVideobookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassVideobookMark.objects.filter(id=userId)
+        else:
+            qs = PrimeClassVideobookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "PrimeClassVideo_title": data.PrimeClassVideo.title,
+                "PrimeClassVideo_id": data.PrimeClassVideo.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassVideobookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassVideobookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassVideobookMark.objects.get(id=userId)
+        except PrimeClassVideobookMark.DoesNotExist:
+            return Response({"error": "PrimeClassVideobookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassVideobookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassVideobookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassVideobookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class PrimeClassAudiobookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassAudiobookMark.objects.filter(id=userId)
+        else:
+            qs = PrimeClassAudiobookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "PrimeClassAudio_title": data.PrimeClassAudio.title,
+                "PrimeClassAudio_id": data.PrimeClassAudio.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassAudiobookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassAudiobookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassAudiobookMark.objects.get(id=userId)
+        except PrimeClassAudiobookMark.DoesNotExist:
+            return Response({"error": "PrimeClassAudiobookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassAudiobookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassAudiobookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassAudiobookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class PrimeClassNotesbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = PrimeClassNotesbookMark.objects.filter(id=userId)
+        else:
+            qs = PrimeClassNotesbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "PrimeClassNotes_title": data.PrimeClassNotes.title,
+                "PrimeClassNotes_id": data.PrimeClassNotes.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = PrimeClassNotesbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered PrimeClassNotesbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = PrimeClassNotesbookMark.objects.get(id=userId)
+        except PrimeClassNotesbookMark.DoesNotExist:
+            return Response({"error": "PrimeClassNotesbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = PrimeClassNotesbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(PrimeClassNotesbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(PrimeClassNotesbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class LiveClassbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = LiveClassbookMark.objects.filter(id=userId)
+        else:
+            qs = LiveClassbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "LiveClass_title": data.LiveClass.title,
+                "LiveClass_id": data.LiveClass.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = LiveClassbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered LiveClassbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = LiveClassbookMark.objects.get(id=userId)
+        except LiveClassbookMark.DoesNotExist:
+            return Response({"error": "LiveClassbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = LiveClassbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(LiveClassbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(LiveClassbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class QuestionDiscussionbookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = QuestionDiscussionbookMark.objects.filter(id=userId)
+        else:
+            qs = QuestionDiscussionbookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "QuestionDiscussion_title": data.QuestionDiscussion.title,
+                "QuestionDiscussion_id": data.QuestionDiscussion.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status           
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = QuestionDiscussionbookMark_Serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered QuestionDiscussionbookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = QuestionDiscussionbookMark.objects.get(id=userId)
+        except QuestionDiscussionbookMark.DoesNotExist:
+            return Response({"error": "QuestionDiscussionbookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuestionDiscussionbookMark_Serializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(QuestionDiscussionbookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(QuestionDiscussionbookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+

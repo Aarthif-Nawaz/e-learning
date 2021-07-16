@@ -67,4 +67,31 @@ urlpatterns = [
     path('QuestionBankPreviousQuestions/', QuestionBankPreviousQuestionsView.as_view(), name="QuestionBankPreviousQuestionsView"),
     path('QuestionDiscussion/', QuestionDiscussionView.as_view(), name="QuestionDiscussionView"),
 
+# ---------------------15 july 
+
+    path('ShotsbookMark/', ShotsbookMarkView.as_view(), name="ShotsbookMarkView"),
+    path('ShotsLiked/', ShotsLikedView.as_view(), name="ShotsLikedView"), 
+    path('Diff_DigbookMark/', Diff_DigbookMarkView.as_view(), name="Diff_DigbookMarkView"),
+    path('Diff_DigLiked/', Diff_DigLikedView.as_view(), name="Diff_DigLikedView"), 
+    path('Recent_UpdatesbookMark/', Recent_UpdatesbookMarkView.as_view(), name="Recent_UpdatesbookMarkView"),
+    path('Recent_UpdatesLiked/', Recent_UpdatesLikedView.as_view(), name="Recent_UpdatesLikedView"), 
+    path('ValuesbookMark/', ValuesbookMarkView.as_view(), name="ValuesbookMarkView"),
+    path('ValuesLiked/', ValuesLikedView.as_view(), name="ValuesLikedView"), 
+    path('ICardsPDFbookMark/', ICardsPDFbookMarkView.as_view(), name="ICardsPDFbookMarkView"),
+    path('ICardsPDFLiked/', ICardsPDFLikedView.as_view(), name="ICardsPDFLikedView"), 
+    path('ICardsAudiobookMark/', ICardsAudiobookMarkView.as_view(), name="ICardsAudiobookMarkView"),
+    path('ICardsAudioLiked/', ICardsAudioLikedView.as_view(), name="ICardsAudioLikedView"), 
+    path('ICardsVideobookMark/', ICardsVideobookMarkView.as_view(), name="ICardsVideobookMarkView"),
+    path('ICardsVideoLiked/', ICardsVideoLikedView.as_view(), name="ICardsVideoLikedView"), 
+    path('ImageBankbookMark/', ImageBankbookMarkView.as_view(), name="ImageBankbookMarkView"),
+    path('ImageBankLiked/', ImageBankLikedView.as_view(), name="ImageBankLikedView"), 
+    path('WallPostersbookMark/', WallPostersbookMarkView.as_view(), name="WallPostersbookMarkView"),
+    path('WallPostersLiked/', WallPostersLikedView.as_view(), name="WallPostersLikedView"),
+
+    path('PrimeClassVideobookMark/', PrimeClassVideobookMarkView.as_view(), name="PrimeClassVideobookMarkView"),
+    path('PrimeClassAudiobookMark/', PrimeClassAudiobookMarkView.as_view(), name="PrimeClassAudiobookMarkView"),
+    path('PrimeClassNotesbookMark/', PrimeClassNotesbookMarkView.as_view(), name="PrimeClassNotesbookMarkView"),
+    path('LiveClassbookMark/', LiveClassbookMarkView.as_view(), name="LiveClassbookMarkView"),
+    path('QuestionDiscussionbookMark/', QuestionDiscussionbookMarkView.as_view(), name="QuestionDiscussionbookMarkView"), 
+
 ]

@@ -513,3 +513,193 @@ class QuestionDiscussion(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+
+# ----------------------15 july changes ------------
+
+class ShotsbookMark(models.Model):
+	shots = models.ForeignKey(Shots, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True) 
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class ShotsLiked(models.Model):
+	shots = models.ForeignKey(Shots, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)    
+
+class Diff_DigbookMark(models.Model):
+	Diff_Digg = models.ForeignKey(Diff_Dig, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class Diff_DigLiked(models.Model):
+	Diff_Digg = models.ForeignKey(Diff_Dig, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class Recent_UpdatesbookMark(models.Model):
+	Recent_Updates = models.ForeignKey(recent_updates, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class Recent_UpdatesLiked(models.Model):
+	Recent_Updates = models.ForeignKey(recent_updates, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class ValuesbookMark(models.Model):
+	Values = models.ForeignKey(Values, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class ValuesLiked(models.Model):
+	Values = models.ForeignKey(Values, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class ICardsPDFbookMark(models.Model):
+	ICardsPDF = models.ForeignKey(ICardsPDF, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+class ICardsPDFLiked(models.Model):
+	ICardsPDF = models.ForeignKey(ICardsPDF, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class ICardsAudiobookMark(models.Model):
+	ICardsAudio = models.ForeignKey(ICardsAudio, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+class ICardsAudioLiked(models.Model):
+	ICardsAudio = models.ForeignKey(ICardsAudio, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class ICardsVideobookMark(models.Model):
+	ICardsVideo = models.ForeignKey(ICardsVideo, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class ICardsVideoLiked(models.Model):
+	ICardsVideo = models.ForeignKey(ICardsVideo, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class ImageBankbookMark(models.Model):
+	ImageBank = models.ForeignKey(ImageBank, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class ImageBankLiked(models.Model):
+	ImageBank = models.ForeignKey(ImageBank, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+class WallPostersbookMark(models.Model):
+	WallPosters = models.ForeignKey(WallPosters, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class WallPostersLiked(models.Model):
+	WallPosters = models.ForeignKey(WallPosters, on_delete=models.CASCADE, null=True)
+	liked_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.liked_status)   
+
+
+class PrimeClassVideobookMark(models.Model):
+	PrimeClassVideo = models.ForeignKey(PrimeClassVideo, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class PrimeClassAudiobookMark(models.Model):
+	PrimeClassAudio = models.ForeignKey(PrimeClassAudio, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class PrimeClassNotesbookMark(models.Model):
+	PrimeClassNotes = models.ForeignKey(PrimeClassNotes, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+class LiveClassbookMark(models.Model):
+	LiveClass = models.ForeignKey(LiveClass, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+class QuestionDiscussionbookMark(models.Model):
+	QuestionDiscussion = models.ForeignKey(QuestionDiscussion, on_delete=models.CASCADE, null=True)
+	bookmark_status = models.BooleanField(default=False)
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+
+
+    
+
+
