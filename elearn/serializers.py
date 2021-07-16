@@ -269,9 +269,7 @@ class PrimeClassNotes_SubCategorySerializer(serializers.ModelSerializer):
 class PrimeClassNotes_Serializer(serializers.ModelSerializer):
     class Meta:
         model = PrimeClassNotes
-        fields = '__all__'
-
-    # ----------------Live class  13 july ---
+        fields = '__all__'  
 
 
 class LiveClassBannerImage_Serializer(serializers.ModelSerializer):
@@ -296,9 +294,6 @@ class LiveClass_Serializer(serializers.ModelSerializer):
     class Meta:
         model = LiveClass
         fields = '__all__'
-
-
-# --------------- QuestionBankPreviousQuestions
 
 class QuestionBankPreviousQuestions_CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -351,4 +346,121 @@ class QuestionBankQuizTimerSerializer(serializers.ModelSerializer):
 class QuestionBankCompletedSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankCompleted
+        fields = '_all_'
+
+
+
+# ----------------------15 july changes ------------
+class ShotsbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShotsbookMark
+        fields = '_all_'
+
+class ShotsLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShotsLiked
+        fields = '_all_'
+
+class Diff_DigbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diff_DigbookMark
+        fields = '_all_'
+
+class Diff_DigLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diff_DigLiked
+        fields = '_all_'
+
+class Recent_UpdatesbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recent_UpdatesbookMark
+        fields = '_all_'
+
+class Recent_UpdatesLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recent_UpdatesLiked
+        fields = '_all_'
+
+class ValuesbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ValuesbookMark
+        fields = '_all_'
+
+class ValuesLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ValuesLiked
+        fields = '_all_'
+
+class ICardsPDFbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPDFbookMark
+        fields = '_all_'
+
+class ICardsPDFLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPDFLiked
+        fields = '_all_'
+
+class ICardsAudiobookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsAudiobookMark
+        fields = '_all_'
+
+class ICardsAudioLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsAudioLiked
+        fields = '_all_'
+
+class ICardsVideobookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsVideobookMark
+        fields = '_all_'
+
+class ICardsVideoLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsVideoLiked
+        fields = '_all_'
+
+class ImageBankbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageBankbookMark
+        fields = '_all_'
+
+class ImageBankLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageBankLiked
+        fields = '_all_'
+
+class WallPostersbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = WallPostersbookMark
+        fields = '_all_'
+
+class WallPostersLiked_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = WallPostersLiked
+        fields = '_all_'
+
+# ---------- only bookmark
+class PrimeClassVideobookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassVideobookMark
+        fields = '_all_'
+
+class PrimeClassAudiobookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassAudiobookMark
+        fields = '_all_'
+
+class PrimeClassNotesbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeClassNotesbookMark
+        fields = '_all_'
+class LiveClassbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveClassbookMark
+        fields = '_all_'
+class QuestionDiscussionbookMark_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionDiscussionbookMark
         fields = '_all_'
