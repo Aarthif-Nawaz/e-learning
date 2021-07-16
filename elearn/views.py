@@ -76,12 +76,24 @@ class Login(APIView):
 
     def post(self, request):
         data = request.data
-        finding_exising_user = User.objects.filter(Q(mobile__iexact=data.get('mobile')))
+        finding_exising_user = User.objects.filter(mobile__iexact=data.get('mobile'), is_blocked=False)
         if finding_exising_user.exists():
             return Response({"message": "Successfully Logged In"},
                             status=status.HTTP_200_OK)
         else:
             return Response({'message': 'No Such mobile exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        try:
+            user = User.objects.get(id=userId)
+        except User.DoesNotExist:
+            return Response({"error": "User ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+        data = {"is_blocked": request.data.get('is_blocked')}
+        serializer = UserSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
 
 
 class ShotsView(APIView):

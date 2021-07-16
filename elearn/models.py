@@ -7,6 +7,7 @@ class User(models.Model):
     email = models.EmailField(max_length=200)
     college = models.CharField(max_length=200, null=True)
     location = models.CharField(max_length=200, null=True)
+    is_blocked = models.BooleanField(default=False)
 
     def _str_(self):
         return "%s" % (self.name)
