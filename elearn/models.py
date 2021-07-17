@@ -721,3 +721,26 @@ class QuestionDiscussionbookMark(models.Model):
 
     def __str__(self):
         return "%s" % (self.bookmark_status)
+
+class ICardsPastPaper_Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class ICardsPastPaper_SubCategory(models.Model):
+    category = models.ForeignKey(ICardsPastPaper_Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class ICardsPastPaper(models.Model):
+    sub_category = models.ForeignKey(ICardsPastPaper_SubCategory, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    pdf = models.FileField(upload_to=f'pdf/Icards/')
+
+    def __str__(self):
+        return "%s" % (self.title)
