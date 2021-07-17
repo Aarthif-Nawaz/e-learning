@@ -50,7 +50,7 @@ class RegistrationView(APIView):
             if finding_exising_user_detail.exists():
                 return Response({"message": "Mobile Already Exists"},
                                 status=status.HTTP_200_OK)
-        elif data.get('email'):
+        if data.get('email'):
             finding_exising_user_detail = User.objects.filter(email__iexact=data.get('email'))
             if finding_exising_user_detail.exists():
                 return Response({"message": "Email Already Exists"},
@@ -59,9 +59,13 @@ class RegistrationView(APIView):
             serializer = UserSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
+
+                return Response({"Status": True,
+                                 "Message": "Successfully Registered User", "User ID":{serializer.data['id']}},
+                                status=status.HTTP_201_CREATED)
             return Response({"Status": True,
-                             "Message": "Successfully Registered User"},
-                            status=status.HTTP_201_CREATED)
+                             "Message": f" : Unable to register"},
+                            status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -94,7 +98,7 @@ class Login(APIView):
         if finding_exising_user.exists():
             for data in finding_exising_user:
                 if not data.is_blocked:
-                    return Response({"user_id": data.id},
+                    return Response({"user_id": data.id, "user_name": data.name, "mobile": data.mobile, "email": data.email},
                                     status=status.HTTP_200_OK)
                 else:
                     return Response({"message": "User Blocked"},
@@ -4476,13 +4480,15 @@ class QuestionDiscussionbookMarkView(APIView):
             get_object_or_404(QuestionDiscussionbookMark, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
 class ICardsPastPaper_CategoryView(APIView):
 
     def get(self, request, format=None):
         userId = request.GET.get('id')
         if userId:
             return Response(
-                ICardsPastPaper_CategorySerializer(get_object_or_404(ICardsPastPaper_Category, id=userId), many=False).data,
+                ICardsPastPaper_CategorySerializer(get_object_or_404(ICardsPastPaper_Category, id=userId),
+                                                   many=False).data,
                 status=status.HTTP_200_OK)
 
         serializer = ICardsPastPaper_CategorySerializer(ICardsPastPaper_Category.objects.all(), many=True)

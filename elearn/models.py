@@ -253,11 +253,12 @@ class QuestionOfTheDay(models.Model):
 
 class DailyBoosterMain(models.Model):
     banner = models.ForeignKey(DailyBoostBanner, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200, default='')
     timer = models.IntegerField()
     no_of_mcq = models.CharField(max_length=200)
 
     def __str__(self):
-        return "%s" % (self.timer)
+        return "%s" % (self.title)
 
 
 class DailyBoosterQuiz(models.Model):
