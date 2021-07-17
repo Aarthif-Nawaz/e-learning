@@ -555,3 +555,8 @@ class GroupDiscussionUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupDiscussionUser
         fields = '_all_'
+
+class DailyBoosterBookMarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterBookMark
+        fields = '_all_'

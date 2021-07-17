@@ -109,4 +109,6 @@ urlpatterns = [
     path('GroupDiscussionAdmin/', GroupDiscussionAdminView.as_view(),name="GroupDiscussionAdminView"),
     path('GroupDiscussionUser/', GroupDiscussionUserView.as_view(),name="GroupDiscussionUserView"),
 
+    path('DailyBoosterBookMark/', DailyBoosterBookMarkView.as_view(),name="DailyBoosterBookMarkView"),
+
 ]

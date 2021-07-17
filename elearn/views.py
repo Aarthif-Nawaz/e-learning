@@ -5158,3 +5158,59 @@ class GroupDiscussionUserView(APIView):
         else:
             get_object_or_404(GroupDiscussionUser, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class DailyBoosterBookMarkView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = DailyBoosterBookMark.objects.filter(id=userId)
+        else:
+            qs = DailyBoosterBookMark.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "DailyBoostermain_title": data.DailyBoostermain.title,
+                "DailyBoostermain_id": data.DailyBoostermain.id,
+                "user_id": data.user.id,
+                "boookmark_status": data.bookmark_status
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = DailyBoosterBookMarkSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered DailyBoosterBookMark"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = DailyBoosterBookMark.objects.get(id=userId)
+        except DailyBoosterBookMark.DoesNotExist:
+            return Response({"error": "DailyBoosterBookMark ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = DailyBoosterBookMarkSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(DailyBoosterBookMark, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(DailyBoosterBookMark, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+

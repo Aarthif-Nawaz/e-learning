@@ -799,8 +799,6 @@ class TestQuestionDiscussion(models.Model):
     def __str__(self):
         return "%s" % (self.question)
 
-
-
 class TestDiscussion(models.Model):
     question = models.CharField(max_length=200)
     answer1 = models.CharField(max_length=200)
@@ -838,7 +836,7 @@ class GroupDiscussionUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     group =  models.ForeignKey(GroupDiscussionAdmin, on_delete=models.CASCADE, null=True)
     question = models.CharField(max_length=200)
-    file = models.FileField(upload_to=f'notes/Discussion/')
+    files = models.FileField(upload_to=f'files/GroupDiscussionUser/')
     answer1 = models.CharField(max_length=200)
     answer2 = models.CharField(max_length=200)
     answer3 = models.CharField(max_length=200)
@@ -847,5 +845,12 @@ class GroupDiscussionUser(models.Model):
   
     def __str__(self):
         return "%s" % (self.question)
+class DailyBoosterBookMark(models.Model):  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    DailyBoostermain =  models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
+    bookmark_status = models.BooleanField(default=False)
+  
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
 
 
