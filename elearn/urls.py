@@ -94,5 +94,19 @@ urlpatterns = [
     path('PrimeClassNotesbookMark/', PrimeClassNotesbookMarkView.as_view(), name="PrimeClassNotesbookMarkView"),
     path('LiveClassbookMark/', LiveClassbookMarkView.as_view(), name="LiveClassbookMarkView"),
     path('QuestionDiscussionbookMark/', QuestionDiscussionbookMarkView.as_view(),name="QuestionDiscussionbookMarkView"),
+   
+   
+#    ------- 17 july 
+    path('Test_Category/', Test_CategoryView.as_view(),name="Test_CategoryView"),
+    path('Test_SubCategory/', Test_SubCategoryView.as_view(),name="Test_SubCategoryView"),
+    path('TestQuestions/', TestQuestionsView.as_view(),name="TestQuestionsView"),    
+    path('TestQuestionStatistics/', TestQuestionStatisticsView.as_view(),name="TestQuestionStatisticsView"),
+    path('TestQuestionDiscussion/', TestQuestionDiscussionView.as_view(),name="TestQuestionDiscussionView"),
+    
+    path('TestDiscussion/', TestDiscussionView.as_view(),name="TestDiscussionView"),
+    path('Discussion/', DiscussionView.as_view(),name="DiscussionView"),
+
+    path('GroupDiscussionAdmin/', GroupDiscussionAdminView.as_view(),name="GroupDiscussionAdminView"),
+    path('GroupDiscussionUser/', GroupDiscussionUserView.as_view(),name="GroupDiscussionUserView"),
 
 ]
