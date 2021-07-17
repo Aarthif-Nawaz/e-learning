@@ -1635,19 +1635,22 @@ class QuestionOfTheDayView(APIView):
         else:
             qs = QuestionOfTheDay.objects.all().order_by('id').first()
 
-        response[qs.id] = {
-            "id": qs.id,
-            "Question": qs.Question,
-            "Answer1": qs.Answer1,
-            "Answer2": qs.Answer2,
-            "Answer3": qs.Answer3,
-            "Answer4": qs.Answer4,
-            "CorrectAnswer": qs.CorrectAnswer,
-            "Explanation": qs.Explanation,
-            "image": qs.Image.url if qs.Image else "no image"
+        try:
+            response[qs.id] = {
+                "id": qs.id,
+                "Question": qs.Question,
+                "Answer1": qs.Answer1,
+                "Answer2": qs.Answer2,
+                "Answer3": qs.Answer3,
+                "Answer4": qs.Answer4,
+                "CorrectAnswer": qs.CorrectAnswer,
+                "Explanation": qs.Explanation,
+                "image": qs.Image.url if qs.Image else "no image"
 
-        }
-        return Response(response.values(), status=status.HTTP_200_OK)
+            }
+            return Response(response.values(), status=status.HTTP_200_OK)
+        except:
+            return Response({'message': 'No Data'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         data = request.data
