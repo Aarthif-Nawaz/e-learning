@@ -327,7 +327,7 @@ class QuestionDiscussion_Serializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '_all_'
+        fields = ('name', 'mobile', 'email', 'college', 'location')
 
 
 class UserBlockedSerializer(serializers.ModelSerializer):

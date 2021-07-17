@@ -4,9 +4,9 @@ from django.db import models
 class User(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=20)
-    email = models.EmailField(max_length=200)
-    college = models.CharField(max_length=200, null=True)
-    location = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200)
+    college = models.CharField(max_length=200, default='', null=True)
+    location = models.CharField(max_length=200, default='', null=True)
     is_blocked = models.BooleanField(default=False)
 
     def __str__(self):
