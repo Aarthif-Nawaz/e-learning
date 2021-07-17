@@ -5214,3 +5214,59 @@ class DailyBoosterBookMarkView(APIView):
             get_object_or_404(DailyBoosterBookMark, id=request.data.get('id')).delete()
         return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
+class LeaderBoardView(APIView):
+
+    def get(self, request, format=None):
+        response = {}
+        userId = request.GET.get('id')
+        if userId:
+            qs = LeaderBoard.objects.filter(id=userId)
+        else:
+            qs = LeaderBoard.objects.all()
+
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "Test_SubCategory_title": data.Test_SubCategory.title,
+                "Test_SubCategory_id": data.Test_SubCategory.id,
+                "user_id": data.user.id,
+                "score": data.score,
+                "accuracy": data.accuracy
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = LeaderBoardSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response({"Status": True,
+                             "Message": "Successfully Registered LeaderBoard"},
+                            status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        userId = request.GET.get('id')
+        data = request.data
+        try:
+            user = LeaderBoard.objects.get(id=userId)
+        except LeaderBoard.DoesNotExist:
+            return Response({"error": "LeaderBoard ID not found", "status": False},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = LeaderBoardSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+
+    def delete(self, request):
+        if request.GET.get('id'):
+            get_object_or_404(LeaderBoard, id=request.GET.get('id')).delete()
+        else:
+            get_object_or_404(LeaderBoard, id=request.data.get('id')).delete()
+        return Response({"success": "Id related data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+

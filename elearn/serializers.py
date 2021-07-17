@@ -560,3 +560,7 @@ class DailyBoosterBookMarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyBoosterBookMark
         fields = '_all_'
+class LeaderBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaderBoard
+        fields = '_all_'

@@ -847,10 +847,18 @@ class GroupDiscussionUser(models.Model):
         return "%s" % (self.question)
 class DailyBoosterBookMark(models.Model):  
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    DailyBoostermain =  models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
+    DailyBoosterMain =  models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
     bookmark_status = models.BooleanField(default=False)
   
     def __str__(self):
         return "%s" % (self.bookmark_status)
+class LeaderBoard(models.Model):  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    Test_SubCategory =  models.ForeignKey(Test_SubCategory, on_delete=models.CASCADE, null=True)
+    score = models.IntegerField()
+    accuracy = models.FloatField()
+  
+    def __str__(self):
+        return "%s" % (self.score)
 
 
