@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class User(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=20)
@@ -745,3 +744,121 @@ class ICardsPastPaper(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+
+
+# 17 july --------------------
+
+class Test_Category(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+class Test_SubCategory(models.Model):
+    category = models.ForeignKey(Test_Category, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200)
+    no_of_mcq = models.CharField(max_length=200)
+    timer = models.CharField(max_length=200)
+    result_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s" % (self.title)
+
+class TestQuestions(models.Model):
+    test_sub_category = models.ForeignKey(Test_SubCategory, on_delete=models.CASCADE, null=True)
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctanswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=f'TestQuestions/images')
+
+    def __str__(self):
+        return "%s" % (self.question)
+class TestQuestionStatistics(models.Model):
+    test_sub_category = models.ForeignKey(Test_SubCategory, on_delete=models.CASCADE, null=True)
+    skipped =  models.IntegerField()
+    wrong = models.IntegerField()
+    correct = models.IntegerField()
+    not_viewed = models.IntegerField()
+  
+    def __str__(self):
+        return "%s" % (self.correct)
+class TestQuestionDiscussion(models.Model):
+    test_sub_category = models.ForeignKey(Test_SubCategory, on_delete=models.CASCADE, null=True)
+    video = models.FileField(upload_to=f'Videos/TestQuestionDiscussion/')
+    question = models.CharField(max_length=200)
+    question_time = models.TimeField()
+    image = models.ImageField(upload_to=f'TestQuestionDiscussion/images')
+    notes = models.FileField(upload_to=f'notes/TestQuestionDiscussion/')
+    bookmark =  models.BooleanField(default=False)
+  
+    def __str__(self):
+        return "%s" % (self.question)
+
+class TestDiscussion(models.Model):
+    question = models.CharField(max_length=200)
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctAnswer = models.CharField(max_length=200)
+    explanation = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=f'TestDiscussion/images')
+
+    def __str__(self):
+        return "%s" % (self.question)
+
+class Discussion(models.Model):   
+    video = models.FileField(upload_to=f'Videos/Discussion/')
+    question = models.CharField(max_length=200)
+    question_time = models.TimeField()
+    notes = models.FileField(upload_to=f'notes/Discussion/')
+    image = models.ImageField(upload_to=f'Discussion/images')
+    bookmark =  models.BooleanField(default=False)
+  
+    def __str__(self):
+        return "%s" % (self.question)
+
+
+
+class GroupDiscussionAdmin(models.Model):
+    groupname = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=f'GroupDiscussionAdmin/images')
+
+    def __str__(self):
+        return "%s" % (self.groupname)
+
+class GroupDiscussionUser(models.Model):  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    group =  models.ForeignKey(GroupDiscussionAdmin, on_delete=models.CASCADE, null=True)
+    question = models.CharField(max_length=200)
+    files = models.FileField(upload_to=f'files/GroupDiscussionUser/')
+    answer1 = models.CharField(max_length=200)
+    answer2 = models.CharField(max_length=200)
+    answer3 = models.CharField(max_length=200)
+    answer4 = models.CharField(max_length=200)
+    correctAnswer = models.CharField(max_length=200)
+  
+    def __str__(self):
+        return "%s" % (self.question)
+class DailyBoosterBookMark(models.Model):  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    DailyBoosterMain =  models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
+    bookmark_status = models.BooleanField(default=False)
+  
+    def __str__(self):
+        return "%s" % (self.bookmark_status)
+class LeaderBoard(models.Model):  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    Test_SubCategory =  models.ForeignKey(Test_SubCategory, on_delete=models.CASCADE, null=True)
+    score = models.IntegerField()
+    accuracy = models.FloatField()
+  
+    def __str__(self):
+        return "%s" % (self.score)
+
+

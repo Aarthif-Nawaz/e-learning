@@ -511,3 +511,56 @@ class ICardsPastPaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPastPaper
         fields = '_all_'
+
+
+# ----------- 17 july 
+
+class Test_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Test_Category
+        fields = '_all_'
+
+class Test_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Test_SubCategory
+        fields = '_all_'
+class TestQuestionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestQuestions
+        fields = '_all_'
+class TestQuestionStatisticsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestQuestionStatistics
+        fields = '_all_'
+class TestQuestionDiscussionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestQuestionStatistics
+        fields = '_all_'
+
+class TestDiscussionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestDiscussion
+        fields = '_all_'
+class DiscussionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Discussion
+        fields = '_all_'
+
+class GroupDiscussionAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupDiscussionAdmin
+        fields = '_all_'
+        
+class GroupDiscussionUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupDiscussionUser
+        fields = '_all_'
+
+class DailyBoosterBookMarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyBoosterBookMark
+        fields = '_all_'
+class LeaderBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaderBoard
+        fields = '_all_'
