@@ -497,3 +497,19 @@ class QuestionDiscussionbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionDiscussionbookMark
         fields = '_all_'
+
+
+
+class ICardsPastPaper_CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPastPaper_Category
+        fields = '_all_'
+
+class ICardsPastPaper_SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPastPaper_SubCategory
+        fields = '_all_'
+class ICardsPastPaperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ICardsPastPaper
+        fields = '_all_'
