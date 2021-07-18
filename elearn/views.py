@@ -5063,7 +5063,8 @@ class GroupDiscussionAdminView(APIView):
             print(data)
             response[data.id] = {
                 "id": data.id,
-                "groupname": data.groupname
+                "groupname": data.groupname,
+                "image":data.image
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
@@ -5106,8 +5107,14 @@ class GroupDiscussionUserView(APIView):
     def get(self, request, format=None):
         response = {}
         userId = request.GET.get('id')
+        group_id = request.GET.get('group_id')
+        user_id = request.GET.get('user_id')
         if userId:
             qs = GroupDiscussionUser.objects.filter(id=userId)
+        elif user_id:
+            qs = GroupDiscussionUser.objects.filter(user_id=user_id)
+        elif group_id and user_id:
+            qs = GroupDiscussionUser.objects.filter(group_id=group_id, user_id=user_id)
         else:
             qs = GroupDiscussionUser.objects.all()
 
@@ -5166,8 +5173,12 @@ class DailyBoosterBookMarkView(APIView):
     def get(self, request, format=None):
         response = {}
         userId = request.GET.get('id')
+        daily_boost = request.GET.get('daily_boost_id')
+        user_id = request.GET.get('user_id')
         if userId:
             qs = DailyBoosterBookMark.objects.filter(id=userId)
+        elif daily_boost and user_id:
+            qs = DailyBoosterBookMark.objects.filter(DailyBoosterMain_id=daily_boost, user_id=user_id)
         else:
             qs = DailyBoosterBookMark.objects.all()
 
@@ -5221,8 +5232,12 @@ class LeaderBoardView(APIView):
     def get(self, request, format=None):
         response = {}
         userId = request.GET.get('id')
+        test_id = request.GET.get('test_id')
+        user_id = request.GET.get('user_id')
         if userId:
             qs = LeaderBoard.objects.filter(id=userId)
+        elif test_id and user_id:
+            qs = LeaderBoard.objects.filter(Test_SubCategory_id=test_id, user_id=user_id).order_by('-score')
         else:
             qs = LeaderBoard.objects.all()
 

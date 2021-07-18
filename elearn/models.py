@@ -857,7 +857,7 @@ class GroupDiscussionUser(models.Model):
 
 class DailyBoosterBookMark(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    DailyBoosterMain = models.ForeignKey(DailyBoosterMain, on_delete=models.CASCADE, null=True)
+    DailyBoosterMain = models.ForeignKey(DailyBoosterQuiz, on_delete=models.CASCADE, null=True)
     bookmark_status = models.BooleanField(default=False)
 
     def __str__(self):
