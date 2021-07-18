@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3021a0e5-a9d4-4a75-90c0-9d0a1d2ac911" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elearn/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elearn/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,7 @@
       <workItem from="1626406848534" duration="202000" />
       <workItem from="1626407421657" duration="1895000" />
       <workItem from="1626470344374" duration="16188000" />
-      <workItem from="1626551562685" duration="5269000" />
+      <workItem from="1626551562685" duration="9007000" />
     </task>
     <servers />
   </component>

@@ -59,9 +59,9 @@ class RegistrationView(APIView):
             serializer = UserSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-
+                id = serializer.data['id']
                 return Response({"Status": True,
-                                 "Message": "Successfully Registered User", "User ID":{serializer.data['id']}},
+                                 "Message": "Successfully Registered User", "User ID": id},
                                 status=status.HTTP_201_CREATED)
             return Response({"Status": True,
                              "Message": f" : Unable to register"},
@@ -1715,9 +1715,12 @@ class DailyBoosterMainView(APIView):
             serializer = DailyBoosterMainSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-            return Response({"Status": True,
-                             "Message": "Successfully Registered DailyBoosterMainQuiz"},
-                            status=status.HTTP_201_CREATED)
+                return Response({"Status": True,
+                                 "Message": "Successfully Registered DailyBoosterMainQuiz"},
+                                status=status.HTTP_201_CREATED)
+            return Response({"Status": False,
+                             "Message": "Not Successfully Registered DailyBoosterMainQuiz"},
+                            status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
                             status=status.HTTP_400_BAD_REQUEST)
