@@ -1703,6 +1703,7 @@ class DailyBoosterMainView(APIView):
             response[data.id] = {
                 "id": data.id,
                 "bannerImage": data.banner.banner.url,
+                "title": data.title,
                 "banner_id": data.banner.id,
                 "timer": data.timer,
                 "no_of_questions": data.no_of_mcq,
@@ -1760,6 +1761,7 @@ class DailyBoosterQuizView(APIView):
                 "id": data.id,
                 "banner_image": data.dailyboostdetail.banner.banner.url,
                 "banner_id": data.dailyboostdetail.banner.banner.id,
+                "banner_title": data.dailyboostdetail.banner.title,
                 "timer": data.dailyboostdetail.timer,
                 "no_of_mcq": data.dailyboostdetail.no_of_mcq,
                 "question": data.question,
