@@ -558,7 +558,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
 class GroupDiscussionAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupDiscussionAdmin
-        fields = '_all_'
+        fields = ('groupname', 'image')
 
 
 class GroupDiscussionUserSerializer(serializers.ModelSerializer):

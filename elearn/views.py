@@ -5064,7 +5064,7 @@ class GroupDiscussionAdminView(APIView):
             response[data.id] = {
                 "id": data.id,
                 "groupname": data.groupname,
-                "image":data.image
+                "image":data.image.url if data.image else "no image"
             }
         return Response(response.values(), status=status.HTTP_200_OK)
 
