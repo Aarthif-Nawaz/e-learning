@@ -1762,6 +1762,7 @@ class DailyBoosterQuizView(APIView):
                 "banner_image": data.dailyboostdetail.banner.banner.url,
                 "banner_id": data.dailyboostdetail.banner.id,
                 "banner_title": data.dailyboostdetail.banner.title,
+                "daily_booster_id":data.dailyboostdetail.id,
                 "timer": data.dailyboostdetail.timer,
                 "no_of_mcq": data.dailyboostdetail.no_of_mcq,
                 "question": data.question,
