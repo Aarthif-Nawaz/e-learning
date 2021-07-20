@@ -4491,15 +4491,20 @@ class QuestionDiscussionbookMarkView(APIView):
 class ICardsPastPaper_CategoryView(APIView):
 
     def get(self, request, format=None):
+        response = {}
         userId = request.GET.get('id')
         if userId:
-            return Response(
-                ICardsPastPaper_CategorySerializer(get_object_or_404(ICardsPastPaper_Category, id=userId),
-                                                   many=False).data,
-                status=status.HTTP_200_OK)
+            qs = ICardsPastPaper_Category.objects.filter(id=userId)
+        else:
+            qs = ICardsPastPaper_Category.objects.all()
 
-        serializer = ICardsPastPaper_CategorySerializer(ICardsPastPaper_Category.objects.all(), many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        for data in qs:
+            print(data)
+            response[data.id] = {
+                "id": data.id,
+                "name": data.name,
+            }
+        return Response(response.values(), status=status.HTTP_200_OK)
 
     def post(self, request):
         data = request.data
