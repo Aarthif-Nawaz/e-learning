@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3021a0e5-a9d4-4a75-90c0-9d0a1d2ac911" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/elearn/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/elearn/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="3021a0e5-a9d4-4a75-90c0-9d0a1d2ac911" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,7 +109,7 @@
       <workItem from="1626470344374" duration="16188000" />
       <workItem from="1626551562685" duration="15303000" />
       <workItem from="1626655571160" duration="1231000" />
-      <workItem from="1626723953888" duration="10167000" />
+      <workItem from="1626723953888" duration="10675000" />
     </task>
     <servers />
   </component>

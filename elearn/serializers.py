@@ -506,12 +506,12 @@ class ICardsPastPaper_CategorySerializer(serializers.ModelSerializer):
 class ICardsPastPaper_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPastPaper_SubCategory
-        fields = '_all_'
+        fields = ('category', 'name')
 
 class ICardsPastPaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPastPaper
-        fields = '_all_'
+        fields = ('sub_category', 'title', 'pdf')
 
 
 class Test_CategorySerializer(serializers.ModelSerializer):
