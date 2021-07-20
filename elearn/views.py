@@ -4622,12 +4622,17 @@ class ICardsPastPaperView(APIView):
 
     def post(self, request):
         data = request.data
+        if data.get('sub_category'):
+            finding_exising_sub_category_detail = ICardsPastPaper.objects.filter(sub_category_id=data.get('sub_category'))
+            if finding_exising_sub_category_detail.exists():
+                return Response({"message": "Sub Category Already Exists"},
+                                status=status.HTTP_400_BAD_REQUEST)
         try:
             serializer = ICardsPastPaperSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
             return Response({"Status": True,
-                             "Message": "Successfully Registered ICARDS pdf"},
+                             "Message": "Successfully Registered ICARDS Past Paper pdf"},
                             status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
@@ -4639,7 +4644,7 @@ class ICardsPastPaperView(APIView):
         try:
             user = ICardsPastPaper.objects.get(id=userId)
         except ICardsPastPaper.DoesNotExist:
-            return Response({"error": "Icards video ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Icards Past paper ID not found", "status": False}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ICardsPastPaperSerializer(user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()

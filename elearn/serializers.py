@@ -498,15 +498,18 @@ class QuestionDiscussionbookMark_Serializer(serializers.ModelSerializer):
         model = QuestionDiscussionbookMark
         fields = '_all_'
 
+
 class ICardsPastPaper_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPastPaper_Category
-        fields = ('name', )
+        fields = ('name',)
+
 
 class ICardsPastPaper_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPastPaper_SubCategory
         fields = ('category', 'name')
+
 
 class ICardsPastPaperSerializer(serializers.ModelSerializer):
     class Meta:
@@ -517,43 +520,47 @@ class ICardsPastPaperSerializer(serializers.ModelSerializer):
 class Test_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Test_Category
-        fields = '_all_'
+        fields = ('id', 'title',)
 
 
 class Test_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Test_SubCategory
-        fields = '_all_'
+        fields = ('category', 'title', 'no_of_mcq', 'timer', 'result_date')
 
 
 class TestQuestionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestQuestions
-        fields = '_all_'
+        fields = (
+        'test_sub_category', 'question', 'answer1', 'answer2', 'answer3', 'answer4', 'correctanswer', 'explanation',
+        'image')
 
 
 class TestQuestionStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestQuestionStatistics
-        fields = '_all_'
+        fields = ('test_sub_category', 'skipped', 'wrong', 'correct', 'not_viewed')
 
 
 class TestQuestionDiscussionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestQuestionStatistics
-        fields = '_all_'
+        fields = ('test_sub_category', 'video', 'question', 'question_time', 'image', 'notes', 'bookmark')
 
 
 class TestDiscussionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestDiscussion
-        fields = '_all_'
+        fields = ('question', 'answer1', 'answer2', 'answer3', 'answer4', 'correctAnswer', 'explanation', 'image')
+
 
 
 class DiscussionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discussion
-        fields = '_all_'
+        fields = ('video', 'question', 'question_time', 'notes', 'image', 'bookmark')
+
 
 
 class GroupDiscussionAdminSerializer(serializers.ModelSerializer):
@@ -565,16 +572,16 @@ class GroupDiscussionAdminSerializer(serializers.ModelSerializer):
 class GroupDiscussionUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupDiscussionUser
-        fields = '_all_'
+        fields = ('user', 'group', 'question', 'files', 'answer1', 'answer2', 'answer3', 'answer4', 'correctAnswer')
 
 
 class DailyBoosterBookMarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyBoosterBookMark
-        fields = '_all_'
+        fields = ('user', 'DailyBoosterMain', 'bookmark_status')
 
 
 class LeaderBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = LeaderBoard
-        fields = '_all_'
+        fields = ('user', 'Test_SubCategory', 'score', 'accuracy')
