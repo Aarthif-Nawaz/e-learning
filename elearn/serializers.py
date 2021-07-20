@@ -215,7 +215,7 @@ class QuestionBank_SubCategorySerializer(serializers.ModelSerializer):
 class QuestionBank_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank
-        fields = '__all__' #Do
+        fields = ('title', 'numberofmcqs', 'level', 'category', 'sub_category', 'examtype', 'exam_mode', 'user')
 
 
 class PrimeClassVideo_CategorySerializer(serializers.ModelSerializer):
@@ -303,25 +303,25 @@ class LiveClass_Serializer(serializers.ModelSerializer):
 class QuestionBankPreviousQuestions_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankPreviousQuestions_Category
-        fields = '__all__'
+        fields =  ('id', 'name')
 
 
 class QuestionBankPreviousQuestions_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankPreviousQuestions_SubCategory
-        fields = '__all__'
+        fields = ('category', 'name')
 
 
 class QuestionBankPreviousQuestions_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankPreviousQuestions
-        fields = '__all__'
+        fields =  ('sub_category', 'title', 'pdf')
 
 
 class QuestionDiscussion_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionDiscussion
-        fields = '__all__'
+        fields = ('title', 'video')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -352,25 +352,25 @@ class QuestionBankModeSerializer(serializers.ModelSerializer):
 class QuestionBankQuizTimerSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankQuizTimer
-        fields = '_all_'
+        fields = ('question_bank ', 'date', 'timer')
 
 
 class QuestionBankCompletedSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankCompleted
-        fields = '_all_'
+        fields = ('question_bank ', 'date', 'correct', 'wrong')
 
 
 class ShotsbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ShotsbookMark
-        fields = '_all_'
+        fields = ('shots', 'bookmark_status', 'user_id')
 
 
 class ShotsLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ShotsLiked
-        fields = '_all_'
+        fields = ('shots', 'liked_status', 'user_id')
 
 
 class Diff_DigbookMark_Serializer(serializers.ModelSerializer):
