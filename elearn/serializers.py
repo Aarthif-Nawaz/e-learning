@@ -203,19 +203,19 @@ class DailyBoosterQuizCompletedSerializer(serializers.ModelSerializer):
 class QuestionBank_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank_Category
-        fields = '__all__'
+        fields = ('id', 'name')
 
 
 class QuestionBank_SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank_SubCategory
-        fields = '__all__'
+        fields = ('category', 'name')
 
 
 class QuestionBank_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank
-        fields = '__all__'
+        fields = '__all__' #Do
 
 
 class PrimeClassVideo_CategorySerializer(serializers.ModelSerializer):
@@ -339,7 +339,7 @@ class UserBlockedSerializer(serializers.ModelSerializer):
 class QuestionBankTestModeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankTestMode
-        fields = '_all_'
+        fields = ('level', 'sub_category', 'examtype', 'question','answer1', 'answer2', 'answer3', 'answer4', 'correctanswer', 'explanation', 'image')
 
 
 class QuestionBankModeSerializer(serializers.ModelSerializer):
