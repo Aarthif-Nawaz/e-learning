@@ -2080,7 +2080,7 @@ class QuestionBankModeView(APIView):
         elif type:
             qs = QuestionBankMode.objects.filter(examtype__exact=type).order_by('id')
         else:
-            qs = QuestionBank.objects.all().order_by('id')
+            qs = QuestionBankMode.objects.all().order_by('id')
 
         for data in qs:
             print(data)
@@ -2107,9 +2107,13 @@ class QuestionBankModeView(APIView):
             serializer = QuestionBankModeSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-            return Response({"Status": True,
-                             "Message": "Successfully Registered QuestionBankMode Questions"},
-                            status=status.HTTP_201_CREATED)
+                return Response({"Status": True,
+                                 "Message": "Successfully Registered QuestionBankMode Questions"},
+                                status=status.HTTP_201_CREATED)
+            return Response({"Status": False,
+                             "Message": "Wrong Format"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
                             status=status.HTTP_400_BAD_REQUEST)
