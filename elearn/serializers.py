@@ -339,13 +339,14 @@ class UserBlockedSerializer(serializers.ModelSerializer):
 class QuestionBankTestModeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankTestMode
-        fields = ('level', 'sub_category', 'examtype', 'question','answer1', 'answer2', 'answer3', 'answer4', 'correctanswer', 'explanation', 'image')
+        fields = ('level', 'sub_category', 'examtype', 'question','answer1', 'answer2', 'answer3', 'answer4', 'correctanswer', 'timer')
 
 
 class QuestionBankModeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankMode
-        fields = '_all_'
+        fields = ('level', 'sub_category', 'examtype', 'question','answer1', 'answer2', 'answer3', 'answer4', 'correctanswer', 'explanation', 'image')
+
 
 
 class QuestionBankQuizTimerSerializer(serializers.ModelSerializer):
