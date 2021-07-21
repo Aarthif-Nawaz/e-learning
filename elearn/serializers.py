@@ -215,7 +215,7 @@ class QuestionBank_SubCategorySerializer(serializers.ModelSerializer):
 class QuestionBank_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBank
-        fields = '__all__' #Do
+        fields = ('title', 'numberofmcqs', 'level', 'category', 'sub_category', 'examtype', 'exam_mode', 'user')
 
 
 class PrimeClassVideo_CategorySerializer(serializers.ModelSerializer):
@@ -352,152 +352,153 @@ class QuestionBankModeSerializer(serializers.ModelSerializer):
 class QuestionBankQuizTimerSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankQuizTimer
-        fields = '_all_'
+        fields = ('question_bank ', 'date', 'timer')
 
 
 class QuestionBankCompletedSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionBankCompleted
-        fields = '_all_'
+        fields = ('question_bank ', 'date', 'correct', 'wrong')
 
 
 class ShotsbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ShotsbookMark
-        fields = '_all_'
+        fields = ('shots', 'bookmark_status', 'user_id')
 
 
 class ShotsLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ShotsLiked
-        fields = '_all_'
+        fields = ('shots', 'liked_status', 'user_id')
 
 
 class Diff_DigbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Diff_DigbookMark
-        fields = '_all_'
+        fields = ('Diff_Digg', 'bookmark_status', 'user_id')
 
 
 class Diff_DigLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Diff_DigLiked
-        fields = '_all_'
+        fields = ('Diff_Digg', 'liked_status', 'user_id')
 
 
 class Recent_UpdatesbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Recent_UpdatesbookMark
-        fields = '_all_'
+        fields = ('Recent_Updates', 'bookmark_status', 'user_id')
 
 
 class Recent_UpdatesLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Recent_UpdatesLiked
-        fields = '_all_'
+        fields = ('Recent_Updates', 'liked_status', 'user_id')
 
 
 class ValuesbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ValuesbookMark
-        fields = '_all_'
+        fields = ('Values', 'bookmark_status', 'user_id')
 
 
 class ValuesLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ValuesLiked
-        fields = '_all_'
+        fields = ('Values', 'liked_status', 'user_id')
 
 
 class ICardsPDFbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPDFbookMark
-        fields = '_all_'
+        fields = ('ICardsPDF', 'bookmark_status', 'user_id')
 
 
 class ICardsPDFLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsPDFLiked
-        fields = '_all_'
+        fields = ('ICardsPDF', 'liked_status', 'user_id')
 
 
 class ICardsAudiobookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsAudiobookMark
-        fields = '_all_'
+        fields = ('ICardsAudio', 'bookmark_status', 'user_id')
 
 
 class ICardsAudioLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsAudioLiked
-        fields = '_all_'
+        fields = ('ICardsAudio', 'liked_status', 'user_id')
 
 
 class ICardsVideobookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsVideobookMark
-        fields = '_all_'
+        fields = ('ICardsVideo', 'bookmark_status', 'user_id')
 
 
 class ICardsVideoLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ICardsVideoLiked
-        fields = '_all_'
+        fields = ('ICardsVideo', 'liked_status', 'user_id')
 
 
 class ImageBankbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ImageBankbookMark
-        fields = '_all_'
+        fields = ('ImageBank', 'bookmark_status', 'user_id')
 
 
 class ImageBankLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = ImageBankLiked
-        fields = '_all_'
+        fields = ('ImageBank', 'liked_status', 'user_id')
 
 
 class WallPostersbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = WallPostersbookMark
-        fields = '_all_'
+        fields = ('WallPosters', 'bookmark_status', 'user_id')
 
 
 class WallPostersLiked_Serializer(serializers.ModelSerializer):
     class Meta:
         model = WallPostersLiked
-        fields = '_all_'
+        fields =  ('WallPosters', 'liked_status', 'user_id')
+
 
 
 # ---------- only bookmark
 class PrimeClassVideobookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = PrimeClassVideobookMark
-        fields = '_all_'
+        fields = ('PrimeClassVideo', 'bookmark_status', 'user_id')
 
 
 class PrimeClassAudiobookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = PrimeClassAudiobookMark
-        fields = '_all_'
+        fields = ('PrimeClassAudio', 'bookmark_status', 'user_id')
 
 
 class PrimeClassNotesbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = PrimeClassNotesbookMark
-        fields = '_all_'
+        fields = ('PrimeClassNotes','bookmark_status','user_id')
 
 
 class LiveClassbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = LiveClassbookMark
-        fields = '_all_'
+        fields = ('liveClass','bookmark_status','user_id')
 
 
 class QuestionDiscussionbookMark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionDiscussionbookMark
-        fields = '_all_'
+        fields = ('QuestionDiscussion','bookmark_status','user_id')
 
 
 class ICardsPastPaper_CategorySerializer(serializers.ModelSerializer):
