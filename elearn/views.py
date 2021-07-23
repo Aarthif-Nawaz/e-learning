@@ -63,8 +63,8 @@ class RegistrationView(APIView):
                 return Response({"Status": True,
                                  "Message": "Successfully Registered User", "user_id": id},
                                 status=status.HTTP_201_CREATED)
-            return Response({"Status": True,
-                             "Message": f" : Unable to register"},
+            return Response({"Status": False,
+                             "Message": f" : Unable to register, Fields are missing"},
                             status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"Errors": "Some field miss check and enter", "exception": str(e), "status": False},
@@ -2175,6 +2175,8 @@ class QuestionBankTestModeView(APIView):
                 "answer3": data.answer3,
                 "answer4": data.answer4,
                 "correctanswer": data.correctanswer,
+                "explanation":data.explanation,
+                "image":data.image.url,
                 "timer": data.timer,
             }
         return Response(response.values(), status=status.HTTP_200_OK)

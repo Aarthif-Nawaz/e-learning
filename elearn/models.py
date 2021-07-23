@@ -354,6 +354,8 @@ class QuestionBankTestMode(models.Model):
     answer4 = models.CharField(max_length=200)
     correctanswer = models.CharField(max_length=200)
     timer = models.IntegerField()
+    explanation = models.CharField(max_length=200, default="")
+    image = models.ImageField(upload_to=f'Q_BANK_MODE/images', null=True, default="")
 
     def __str__(self):
         return "%s" % (self.examtype)
