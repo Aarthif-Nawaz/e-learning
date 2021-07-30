@@ -2176,7 +2176,7 @@ class QuestionBankTestModeView(APIView):
                 "answer4": data.answer4,
                 "correctanswer": data.correctanswer,
                 "explanation":data.explanation,
-                "image":data.image.url,
+                "image":data.image.url if data.image else "no image",
                 "timer": data.timer,
             }
         return Response(response.values(), status=status.HTTP_200_OK)
